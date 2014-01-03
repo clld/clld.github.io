@@ -1,0 +1,16 @@
+---
+layout: bootstrap
+menu_item: blog
+---
+
+{% for post in site.posts %}
+<h2>{{ post.title }}</h2>
+<p class="meta muted">
+    <small>posted {{ post.date | date: "%A, %B %d, %Y" }} by {{ post.author }}</small>
+</p>
+<p>{{ post.excerpt }}</p>
+<p>
+  <a href="{{ post.url }}" class="btn">more</a>
+</p>
+<hr>
+{% endfor %}

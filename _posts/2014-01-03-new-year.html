@@ -1,0 +1,121 @@
+---
+layout: post
+title: The First Year
+author: Robert Forkel
+menu_item: blog
+---
+
+<p>
+    After the first of four years of funding it is time to review what has been
+    achieved in 2013 and to outline the next milestones of the project.
+</p>
+
+<h3>Setting up project infrastructure</h3>
+<p>
+    Since software is an important result of the project, we had to look for a way to host
+    code repositories. But for a project that wants to reach out to the wider linguist and
+    developer communities, we actually didn't have to look hard. If lowering barriers for
+    contribution and collaboration is a goal, there's no way around GitHub.
+</p>
+<p>
+    So we set up an <a href="https://github.com/clld">organization on GitHub</a>.
+    For each database which joins the project we create two repositories, one for the
+    software serving the database, and one for the data.
+</p>
+<p>
+    Hosting these repositories on GitHub does also provide us with issue tracking, which
+    again is split into one issue tracker for the software of a database (classical bug
+    tracking), and one for issues with the data (comparable to errata).
+</p>
+<p>
+    All our web applications are prepared for easy, automatic deployment to a rather
+    generic target platform. In particular, it must be possible to deploy an application
+    serving one of our databases on a new virtual machine in the
+    <a href="http://www.gwdg.de/index.php?id=virtuelle_server">VMWare cluster of the GWDG</a>
+    running a single command.
+</p>
+
+<h3>The first datasets</h3>
+<p>
+    Just in time for
+    <a href="http://www.eva.mpg.de/lingua/conference/2013_ALT10/">ALT 10</a> we managed
+    to get the first two databases published with the new
+    <a href="https://github.com/clld/clld">clld framework</a>:
+</p>
+<dl>
+    <dt>
+        <a href="http://apics-online.info">APiCS Online</a>
+        &ndash; the Atlas of Pidgin and Creole Language Structures Online.
+    </dt>
+    <dd>
+        While rather similar to <em>WALS Online</em> - one of the databases that served as prototypes
+        for what should be possible with a cross-linguistic database framework - some peculiarities
+        have been introduced with <em>APiCS</em>, most notably multiple values for one language/parameter
+        pair, thus the notion of a <em>value set</em>, as collection of these values.
+    </dd>
+    <dt>
+        <a href="http://glottolog.org">Glottolog</a>
+    </dt>
+    <dd>
+        Glottolog was the first legacy database re-implemented as clld application. Glottolog
+        is not really a typological database, but the abstractions of the clld framework
+        turned out to be flexible enough to model the Glottolog data as well.
+    </dd>
+</dl>
+<p>
+    Triggered by Google ending the support of its maps API version 2 in November 2013, we had to migrate
+    three already published databases to the clld framework:
+</p>
+<dl>
+    <dt>
+        <a href="http://ewave-atlas.org/">eWAVE</a>
+        &ndash; the electronic World Atlas of Varieties of English
+    </dt>
+    <dd>
+        did not pose any particular problems, since its data model is a simplification of
+        the ones of WALS and APiCS.
+    </dd>
+    <dt>
+        <a href="http://wals.info/">WALS Online</a>
+        &ndash; the World Atlas of Language Structures Online.
+    </dt>
+    <dd>
+        Being re-implemented for the second time, the WALS data and functionality was
+        well known - but at the same time rather extensive. So we ended up implementing
+        more "convenience" functionality than intended, in particular bringing back the
+        functionality to
+        <a href="http://wals.info/combinations/5A_2A#2/19.5/152.8">compose multiple features</a>.
+    </dd>
+    <dt>
+        <a href="http://wold.livingsources.org/">WOLD</a>
+        &ndash; the World Loanword Database
+    </dt>
+    <dd>
+        played the same role WALS did for typological database in the area of lexicographical
+        databases; i.e. it served as a prototype for the data model and functionality of
+        a cross-linguistic lexicographical database framework. So porting it to the clld
+        framework went as planned.
+    </dd>
+</dl>
+<p>
+    The last database published within the project in 2013 was
+    <a href="http://afbo.info">AfBo: A world-wide survey of affix borrowing</a> - a rather small
+    database which still did pose some data modelling problems, because its main research
+    objects are language pairs rather than single languages.
+</p>
+
+
+<h3>2014</h3>
+<p>
+    One focus in 2014 will be on databases with lexicographical data. Migrating
+    <a href="http://lingweb.eva.mpg.de/ids/">The Intercontinental Dictionary Series</a> and
+    the database of
+    <a href="http://email.eva.mpg.de/~wichmann/ASJPHomePage.htm">ASJP (the Automated Similarity Judgement Program)</a>
+    is already underway.
+</p>
+<p>
+    The other main topic are the database journals to be started in 2014. For both, the
+    typological database journal JCLD (Journal of cross-linguistic databases) as well as
+    the dictionary journal, we are in the process of collecting suitable initial or seed
+    publications.
+</p>
