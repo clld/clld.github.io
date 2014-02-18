@@ -1,3 +1,3 @@
 import os
-os.system('jekyll serve -w')
+os.system('jekyll serve')
 
