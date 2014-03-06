@@ -1,0 +1,593 @@
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:48 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\linewidth=2133.95669truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\begin{center}
+\head{CLLD -- Cross-Linguistic Linked Data}
+\subhead{Robert Forkel}
+\subhead{Department of Linguistics, Max Planck Institute for Evolutionary Anthropology}
+\vspace{-5.55mm}
+\end{center}
+\PyXMarker{header}
+}%
+}{1}%
+\PyXInput{6}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\section{Goal}
+\bf{Help collecting the world's language diversity heritage by providing interoperable data publication structures}
+}%
+}{2}%
+\PyXInput{7}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\section{Linguistic databases on the web}
+\subsection{Observations}
+\begin{itemize}
+\item Almost all quantitative papers at ALT 10 used WALS data.
+\item Many typologists at ALT 10 have their own typological database.
+\end{itemize}
+\subsection{CLLD -- The strategy}
+Since reuse tends to be the determining factor that keeps resources from vanishing,
+we want to bridge the gap between data collection and data reuse by
+\begin{itemize}
+\item publishing databases thereby incentivizing researchers through recognition;
+\item using technology that maximizes exposure of our data in the emerging web of data.
+\end{itemize}
+\subsection{CLLD -- The implementation}
+This twofold strategy is implemented by three service components:
+\begin{itemize}
+\item infrastructural: Glottolog - a comprehensive language catalog and bibliography,
+\item structural: Dictionaria -- a dictionary journal and CrossGram Journal -- a journal publishing typological databases,
+\item technological: \texttt{clld} - a software platform for implementing linguistic database applications, which will be used
+to serve standalone database publications like IDS, WOLD, ASJP, WALS, APiCS, eWAVE, ValPal as well as the journals.
+\end{itemize}
+To maximize resuability
+\begin{itemize}
+\item we provide the data under Open Data Licenses,
+\item and the platform as Open Source software under a free license.
+\end{itemize}
+}%
+}{3}%
+\PyXInput{8}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\section{The data model}
+This implementation plan is realistic, because the underlying data model for the target databases is
+both reasonably simple and abstract enough to cover many use cases.
+
+The data model comprises the following entities: Dataset, Contribution, Contributor, Language, Parameter, Value, UnitParameter, Unit, Sentence, Source.
+}%
+}{4}%
+\PyXInput{9}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\subsection{Value -- an APiCS datapoint}
+\vspace{12.5cm}
+\PyXMarker{valueset}
+}%
+}{5}%
+\PyXInput{10}%
+\end{document}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% preparing restart of latex
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:49 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\subsection{Unit -- a Dictionaria word}
+\vspace{13.5cm}
+\PyXMarker{unit}
+}%
+}{1}%
+\PyXInput{6}%
+\end{document}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% preparing restart of latex
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:50 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\section{Linked Data - disseminating data in standard formats}
+\begin{itemize}
+\item Defines a unified data access protocol for the web.
+\item Well-suited for distributed data providers
+\begin{itemize}
+\item identifiers are URLs which are globally unique,
+\item RDF and OWL provide the vocabulary to merge resources.
+\end{itemize}
+\item Provides an easy to implement lowest level of service in a graceful degradation scenario
+\end{itemize}
+}%
+}{1}%
+\PyXInput{6}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\subsection{Use off-the-shelf tools to explore a dataset}
+Linked Data Explorer accessing Glottolog Linked Data serialized as RDF/XML.
+
+\vspace{14cm}
+\PyXMarker{rdf}
+}%
+}{2}%
+\PyXInput{7}%
+\end{document}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% preparing restart of latex
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:50 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\subsection{Use off-the-shelf tools to transform a dataset}
+The map-making software Tilemill accessing APiCS data in GeoJSON format.
+
+\vspace{14cm}
+\PyXMarker{geojson}
+}%
+}{1}%
+\PyXInput{6}%
+\end{document}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% preparing restart of latex
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:50 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\subsection{Comparing WALS and APiCS data pulled in as GeoJSON}
+\vspace{14cm}
+\PyXMarker{wa}
+}%
+}{1}%
+\PyXInput{6}%
+\end{document}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% preparing restart of latex
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:50 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\linewidth=1002.95965truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\section{Mission accomplished? -- A week's Visitors to Glottolog}
+\vspace{9.5cm}
+\PyXMarker{gl}
+}%
+}{1}%
+\PyXInput{6}%
+\end{document}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% preparing restart of latex
+% PyX 0.12.1 texdebug file
+% mode: latex
+% date: Fri Oct 25 20:37:50 2013
+\scrollmode
+\raiseerror%
+\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
+\gdef\PyXBoxHAlign{0}%
+\newbox\PyXBox%
+\newbox\PyXBoxHAligned%
+\newdimen\PyXDimenHAlignLT%
+\newdimen\PyXDimenHAlignRT%
+\gdef\PyXFlushHAlign{0}%
+\def\PyXragged{%
+\leftskip=0pt plus \PyXFlushHAlign fil%
+\rightskip=0pt plus 1fil%
+\advance\rightskip0pt plus -\PyXFlushHAlign fil%
+\parfillskip=0pt%
+\pretolerance=9999%
+\tolerance=9999%
+\parindent=0pt%
+\hyphenpenalty=9999%
+\exhyphenpenalty=9999}%
+\newbox\PyXBoxVBox%
+\newdimen\PyXDimenVBox%
+\newbox\PyXBoxVAlign%
+\newdimen\PyXDimenVAlign%
+\newdimen\PyXDimenVShift%
+\long\def\ProcessPyXBox#1#2{%
+\setbox\PyXBox=\hbox{{#1}}%
+\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
+\PyXDimenHAlignRT=\wd\PyXBox%
+\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
+\gdef\PyXBoxHAlign{0}%
+\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
+\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
+\ht\PyXBoxHAligned0pt%
+{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
+\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
+\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
+\PyXInput{1}%
+\makeatletter%
+\let\saveProcessOptions=\ProcessOptions%
+\def\ProcessOptions{%
+\def\Gin@driver{/home/robert/venvs/clld/clld/docs/poster/tmp0Hxjd6.pyx.def}%
+\def\c@lor@namefile{dvipsnam.def}%
+\saveProcessOptions}%
+\makeatother%
+\PyXInput{2}%
+\documentclass{article}%
+\PyXInput{3}%
+%
+\usepackage[latin1]{inputenc}
+\usepackage{type1cm,pifont}
+\renewcommand\labelitemi{\ding{51}}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
+\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
+\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
+\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
+\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
+\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
+%
+\PyXInput{4}%
+\begin{document}%
+\PyXInput{5}%
+\ProcessPyXBox{\gdef\PyXBoxHAlign{1.00000}\gdef\PyXFlushHAlign{1.00000}\PyXragged{}\fontsize{16}{18}\selectfont Printed at Universit\"atsrechenzentrum Leipzig%
+}{1}%
+\PyXInput{6}%
+\end{document}%

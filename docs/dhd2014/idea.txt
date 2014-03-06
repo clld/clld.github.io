@@ -1,0 +1,12 @@
+
+
+clld for data publications:
+- provide API (RDF, JSON, ...)
+- provide "reference implementation" of a viewer
+  -> screenshots dictionaria and apics
+- viewers can be developed independently:
+  -> screenshots tilemill, rdf-browser
+- link to phonotactics, ipython notebook viewer, lens, ...
+
+API will be possible to maintain with low effort!
+
