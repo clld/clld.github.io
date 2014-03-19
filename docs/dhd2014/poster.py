@@ -90,7 +90,9 @@ c.insert(box(r"""
 #
 #
 c.insert(box(r"""
+\begin{center}
 \section{http://clld.org}
+\end{center}
 \bf{Help recording the world's language diversity heritage by providing interoperable data publication structures.}
 """, 1))
 
@@ -105,7 +107,7 @@ This is the case despite the fact that many linguists collect lexical or typolog
 datasets, serving as primary sources for their own publications.
 
 \subsection{CLLD -- The strategy}
-Since reuse tends to be the determining factor that keeps resources from vanishing,
+Since reuse tends to be the determining factor in keeping resources from vanishing,
 we want to bridge the gap between data collection and data reuse by
 \begin{itemize}
 \item publishing databases thereby incentivizing researchers through recognition;
@@ -118,8 +120,12 @@ This twofold strategy is implemented by three service components:
 \item infrastructural: Glottolog - a comprehensive language catalog and bibliography,
 \item structural: Dictionaria -- a dictionary journal and JCLD -- a journal publishing typological databases,
 \item technological: \texttt{clld} - a software platform for implementing linguistic database applications
-like Glottolog and the journals, but also to serve standalone datasets like WALS, APiCS,
-ASJP, IDS.
+like Glottolog and the journals, but also to serve standalone datasets like
+\begin{itemize}
+\item WALS - The World Atlas of Language Structures,
+\item APiCS - The Atlas of Pidgin and Creole Language Structures,
+\item WOLD - The World Loanword Database
+\end{itemize}
 \end{itemize}
 To maximize resuability
 \begin{itemize}
@@ -141,13 +147,21 @@ To maximize resuability
 
 c.insert(box(r"""
 \subsection{The \texttt{clld} data model}
-\vspace{15.5cm}
+
+It turns out that many linguistic datasets can be modelled using a small set of concepts.
+
+\vspace{0.4cm}
+
+\textit{The core data model:}
+
+\vspace{15.8cm}
 \PyXMarker{cllderd}
 
-The WOLD incarnation of this data model:
+\textit{The WOLD incarnation of this data model:}
 
-\vspace{8.5cm}
+\vspace{8.6cm}
 \PyXMarker{wolderd}
+\vspace{0.8cm}
 """, 1, cllderd=('clld_erd.png', 15.5, 0), wolderd=('wold_erd.png', 8.5, 0)))
 
 #c.insert(box(r"""
@@ -160,17 +174,20 @@ The WOLD incarnation of this data model:
 #
 #
 c.insert(box(r"""
-\section{Linked Data - the \texttt{clld} API}
+\subsection{Linked Data - the \texttt{clld} API}
 \begin{itemize}
 \item Defines a unified data access protocol for the web.
 \item Well-suited for distributed data providers
-%\begin{itemize}
-%\item identifiers are URLs which are globally unique,
-%\item RDF and OWL provide the vocabulary to merge resources.
-%\end{itemize}
+\begin{itemize}
+\item identifiers are URLs which are globally unique,
+\item RDF and OWL provide the vocabulary to merge resources.
+\end{itemize}
 \item Provides an easy to implement lowest level of service in a graceful degradation scenario
 \end{itemize}
+""", 1))
 
+
+c.insert(box(r"""
 \subsection{Emerging API between data publications and tools}
 Linked Data does already provide a data access protocol, i.e. the first part of an API to
 be used by tools which analyze, visualize or otherwise reuse data.
@@ -193,6 +210,14 @@ infrastructure of tools on top of the data.
 Thus, we use this emerging API as definition of a minimal level of service which is easy
 to uphold.
 
+The \texttt{clld} framework will provide an ``emergency exit'' feature, which will create a set of files in an appropriate
+directory structure to be put on a vanilla webserver. This can be done by enumerating the resource types, instances and
+available representations.
+
+So while Linked Data is still not the way researchers actually do or want to access data (at least if they can get away with csv instead),
+there's something to be gained for the developer: A stable API across phases of deployment which can be used by any additional services
+built on top of the data.
+
 Since maintaining the minimal level of service is rather easy, providing sustainable
 services becomes much more likely because scenarios like transfer of ownership become
 feasible.
@@ -202,26 +227,18 @@ feasible.
 c.insert(box(r"""
 \subsection{The data browser}
 
-Viewing a valueset of APiCS Online:
+\textit{Viewing a valueset of APiCS Online:}
 
 \vspace{12.5cm}
 \PyXMarker{valueset}
+\vspace{0.9cm}
 
-Viewing a Dictionaria word:
+\textit{Viewing a Dictionaria word:}
 
 \vspace{13.5cm}
 \PyXMarker{unit}
 
 """, 2, valueset=('valueset.png', 12.5, 0), unit=('unit.png', 13.5, 0)))
-
-
-#
-# TODO: graceful degradation of service: Linked Data defineds the API, the API survives, separation of API and visualization may help visualizations to survive, too!
-#
-
-
-
-c.text(paperformat.width-margin-background, 3, r"\fontsize{16}{18}\selectfont Printed at Universit\"atsrechenzentrum Leipzig", [text.halign.right])
 
 c.writeEPSfile("poster_a4", paperformat=document.paperformat.A4, fittosize=1)
 c.writePDFfile("poster_a4", paperformat=document.paperformat.A4, fittosize=1)
