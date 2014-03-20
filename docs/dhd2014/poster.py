@@ -100,7 +100,7 @@ c.insert(box(r"""
 #
 #
 c.insert(box(r"""
-\section{Cross-linguistic databases on the web}
+\subsection{Cross-linguistic databases on the web}
 While several archives for cross-linguistic data exist (among them the DOBES archive),
 published databases, i.e. freely accessible, citable datasets are few and far between.
 This is the case despite the fact that many linguists collect lexical or typological
@@ -110,7 +110,7 @@ datasets, serving as primary sources for their own publications.
 Since reuse tends to be the determining factor in keeping resources from vanishing,
 we want to bridge the gap between data collection and data reuse by
 \begin{itemize}
-\item publishing databases thereby incentivizing researchers through recognition;
+\item publishing databases thereby incentivizing researchers through recognition,
 \item using technology that maximizes exposure of our data in the emerging web of data.
 \end{itemize}
 
@@ -124,7 +124,7 @@ like Glottolog and the journals, but also to serve standalone datasets like
 \begin{itemize}
 \item WALS - The World Atlas of Language Structures,
 \item APiCS - The Atlas of Pidgin and Creole Language Structures,
-\item WOLD - The World Loanword Database
+\item WOLD - The World Loanword Database.
 \end{itemize}
 \end{itemize}
 To maximize resuability
@@ -184,6 +184,7 @@ c.insert(box(r"""
 \end{itemize}
 \item Provides an easy to implement lowest level of service in a graceful degradation scenario
 \end{itemize}
+\vspace{0.5cm}
 """, 1))
 
 
@@ -225,13 +226,14 @@ feasible.
 
 
 c.insert(box(r"""
-\subsection{The data browser}
+\subsection{The \texttt{clld} data browser}
+A reference implementation for visualising CLLD datasets.
 
 \textit{Viewing a valueset of APiCS Online:}
 
 \vspace{12.5cm}
 \PyXMarker{valueset}
-\vspace{0.9cm}
+\vspace{0.4cm}
 
 \textit{Viewing a Dictionaria word:}
 
