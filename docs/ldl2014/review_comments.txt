@@ -1,0 +1,266 @@
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This paper describes the the Cross-Linguistic Linked Data project and the CLLD
+framework, which is concerned with releasing typological data. So far, 7
+datasets have been release under the framework.
+
+The authors described the underlying data model as well as its implementation,
+as well as the way the data has been published, relying on the void vocabulary.
+The design rationale and motivation are well described and the paper is easy to
+follow and is well written.
+
+The focus has been on developing a practical and pragmatic approach that makes
+data upload simple.
+
+This paper in general provides a very interesting contribution to the workshop.
+
+A puzzling issue which deserves more explanation is why the authors have
+decided not to enforce the LD distinction between information and
+non-information resources. They comments on this, but the explanation is not
+convincing. In general it is easy to distinguish the real world entity from its
+documentation. Why is this distinction not so clear for data in the author's
+view. A few more comments on this would be appreciated.
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+Overview commentary
+This paper describes some of the engineering aspects of the Cross-Linguistic
+Linked Data project. It is written by an individual whose primary job is that
+of a developer rather than the more usual researcher-developers who work in
+this area. However, this particular developer has been instrumental in seeing a
+number of high quality typological data sets published, one of which, the WALS
+data set, has had a highly significant impact on the field of linguistics. Much
+of the data in these data sets has been available in RDF format, though most
+users have preferred other formats. Still, the general data publishing platform
+that has been developed in the Cross-Linguistic Linked Data project points the
+way to a model wherein typological data sets could be more readily published in
+RDF format, which is clearly significant from a Linked Data perspective.
+
+Therefore, while I find this paper to be somewhat atypical in its presentation
+(see below), I think it represents an important perspective that is not
+otherwise likely to be seen at the workshop: That of a developer who wants to
+see lots of data sets published in a Linked Data "ready" way, which otherwise
+might only be published as tables (if at all) and who is building a platform to
+support this. In my own experience, this part of the Linked Data "ecosystem"
+has yet to see enough attention, which is why I rate this manuscript highly. If
+I treat is as merely "accept" rather than "strong accept", it is because the
+actual text of the paper is not quite of the same quality of the strongest
+papers I've seen.
+
+Finally, I would like to emphasize that, while my comments below are somewhat
+extensive, this is only because I'd like to see the paper accepted in as strong
+a shape as possible and hope they will help allow a revision to have the
+maximum possible impact. In other words, they should not be taken as detracting
+from my overall recommendation.
+
+Detailed remarks
+
+Section 1: I found some of the remarks in the introduction a little surprising,
+for instance the claim the data from fieldwork is well-respected in the
+community and that cross-linguistic data might include data on small languages
+as a specifically mentioned case. I think they are a direct result of the fact
+that the author is not a linguist and has interacted with a non-representative
+sample of linguists (mostly typologists). I'd recommend that he make clear his
+own background somewhere so that his perspective can be clearer.
+
+Section 2.1: I noticed when going to the CLLD site that not all of the datasets
+listed here appear to be available, at this moment, via the CLLD framework
+(e.g., ASJP). Perhaps this should be remarked on somewhere. PHOIBLE does not
+appear to even be listed at all on the CLLD page (or at least on the page one
+finds when following the URL in fn. 7).
+
+Section 2.2: "Thus, we aim to “standardize” on a lower level..." Perhaps it
+would be good here to oppose this decision to other possible ones. I'm
+guessing, perhaps, that standardizing on a "lower level" means, for instance,
+not standardizing on semantics (along the lines of what the GOLD Ontology tried
+to do). Is that right? Cant his be clarified?
+
+Section 2.2: "While I understand the strength of the Linked Data approach to
+publishing, being able to also put an attractive human user interface on top of
+a dataset must not be underestimated when it comes to convincing linguists to
+open up their data." I would recommend making this point right at the beginning
+of the paper. I think this is important and, for me, the most important way
+this paper brings an interesting, less frequently heard, perspective to the
+discussion of LDL.
+
+Section 2.2.1: The definition of "parameter" says that it is , "a feature that
+can be coded or determined for a language", but the diagram in figure 1
+associates a Parameter not to a language but to a ValueSet. Can this apparent
+discrepancy be clarified?
+
+Section 2.2.1: "Value" is defined as a "measurement" which, for me, has a
+default reading of "numerical measurement", but can a value be a string
+representing a category as well?
+
+Section 2.2.1: Describing a "sentence" as a "mini-corpus" seems a little weird
+to me.
+
+Section 2.2.1, Figure: I have no idea what is standard editorial procedure
+here, but the Figure seems to be in UML, but this is not explicitly mentioned.
+Maybe it should be? Also, in the figure, I feel I can comprehend most of it,
+but I don't know how to read the directionality of "exemplifies". Presumably a
+sentence "exemplifies" a "Value" or a "UnitValue", but, because "Sentence" is
+in the middle of the diagram, this isn't as obvious as for the other
+predicates.
+
+Section 2.2.1, Figure 2: I don't think a reader not familiar with WOLD would be
+able to make much sense of notions like SynSet or Counterpart here. Perhaps
+they could be briefly introduced or a relevant reference could be given?
+
+Section 2.2.2: "but the default should be good enough most of the time" Can
+something more be said about the nature of the "default" setup here?
+
+Section 2.3: "so this aspect of the service will survive also in the lowest
+level." Can the sense of "lowest level" here be clarified?
+
+Section 2.3: "The clld framework will provide an “emergency exit” feature,
+which will create a set of files in an appropriate directory structure to be
+put on a vanilla webserver." Will this data still be available as RDF under
+such a scenario?
+
+Section 2.3: "So while Linked Data is still not the way researchers actually do
+or want to access data..." I think it might be good to make clear that by
+"researchers", what is meant is something like, "the non-computational
+linguists who are using the CLLD datasets". Obviously, a lot of the researchers
+at the LDL meeting do use Linked Data. Also, I wonder if there are any metrics
+available about data export/usage of a dataset like WALS that has been
+available in RDF and CSV format online for some time. (I imagine CSV downloads
+dwarf RDF ones in numbers.)
+
+Section 2.4: There's a section and a title here but no content for it. Maybe
+Section 2.5 should actually be 2.4.1?
+
+Section 2.5: I found the discussion here to begin abruptly. Maybe a brief
+introductory sentence or paragraph would be helpful?
+
+Section 2.5: "While each resource links to its originating dataset" Is this a
+"resource" in the usual sense that linguist might understand it or a resource
+in the RDF sense?
+
+Section 2.5: "each CLLD dataset is served from a distinct domain" Would this
+even be true of new small datasets that would be published? Or is all the data
+in one of the new "journals" considered a single dataset even if it is created
+by many different authors or projects?
+
+Section 2.5, Figure 4: Around this point of the paper, I found myself losing
+track of when one was talking about CLLD as a large-scale data set versus
+clld(?) as a platform for sharing datasets. Maybe the reader could be reminded
+of when one is more important than the other for the discussion at various
+points? For instance, is this figure using CLLD data to demonstrate the power
+of the framework or showing how the CLLD data is, at this point, already a
+viable source of Linked Data? (Or, maybe, both?)
+
+Section 2.7: "see figure 2.7" I think the figure reference is wrong.
+
+Section 2.8: It is said that linking outside of CLLD needs further
+investigation. How about within CLLD? Do the datasets ever refer to each other
+(e.g., is WALS linked to Glottolog)?
+
+Section 2.8: Would it at least be possible to easily link to the language URIs
+at lexvo at this point?
+
+Section 2.8: I wonder if the author is familiar with this paper that considers
+issues of how IDS (or IDS-like) meanings might be encoded in a Linked Data-like
+framework: http://aclweb.org/anthology//W/W10/W10-2101.pdf. (There is more to
+be said than this, of course, about Linked Data expression of lexical data,
+e.g., one might look at the lemon model, for instance, and work on PanLex may
+also be relevant. See, e.g.,
+http://www.semantic-web-journal.net/system/files/swj509.pdf.)
+
+Section 2.8: "my RDF model" should probably be (stylistically) "CLLD's current
+RDF model"
+
+Section 2.8: Are any new terms needed for CLLD datasets? If so, what
+namespace(s) are they defined in?
+
+Section 3: Without a little more background, most readers may not know why
+linking the "Tea" dataset to WOLD would be interesting.
+
+Section 3: What is meant by "portal" (as opposed to "aggregator") in this
+section?
+
+Section 3: Fn. 31 mentions "CLLD's community [software] repository". Does this
+exist yet? If so, was it mentioned? What's described sounds a little bit like
+some of the goals of CLARIN (http://www.clarin.eu), which perhaps could be
+mentioned.
+
+Should the paper have a brief conclusion?
+
+In the references, the Round paper is listed as though it is in a proceedings
+volume. Does ALT have proceedings?
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This paper describes an infrastructure that is intended to facilitate the
+publishing of linguistic Linked Data. The system already hosts a number of
+datasets from MPI EVA.
+
+While this is a very useful and important project, the paper so far in its
+current form lacks scientific value. Instead, it mainly provides implementation
+details. These are not of much value to most readers, except perhaps for those
+that intend to set up similar infrastructures for other research fields. I
+believe that this project will offer much better results once everything is in
+place and interesting cross-dataset analyses can be carried out and included in
+the paper. The paper could also benefit significantly from more details about
+the proposed Lexicalia and CrossGram interfaces.
+
+Detailed feedback:
+
+It wasn't quite clear from the paper whether the primary use of clld is for
+linguists to set up their own clld servers or whether instead there will be one
+central shared clld server.
+
+Section 2.3 could be made a bit more concrete in specifying what is actually
+performed.
+
+"Arguably, using a concept of languages as sets of doculects (following Good
+and Cysouw (2014)), the thing can to some extent be identified with the web
+document describing it anyway.":
+No, even if you adopt a notion like that of "doculects", the document remains
+entirely separate from the thing that is documented. The document has a length
+in characters, the doculect doesn't. I agree that some of the Linked Data "best
+practices" are cumbersome and often impractical, but this is not a valid
+argument.
+
+Figures 3 and 4: I am not sure that such details need to be in a research
+paper. They could be on the website or in some manual.
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This paper describes a highly interesting approach to a common problem related
+to interoperability, sharing data and language resources, and infrastructure
+for the dissemination of various types of data sets. There is little to suggest
+or comment here.
+
+The author describes a very interesting strategy and architecture, integrates
+in the new infrastructure extremely valuable and high quality data sets.
+
+I consider this a highly relevant and valuable contribution that has the
+potential to influence many other projects related to language data and
+information aggregation.
+
+One comment though, that relates to the general idea of data availability and
+dissemination online: A common problem with data collections from fieldwork is
+that the owners of the data sets are very hesitant to share their data. There
+are various reasons for that. Some are related to concerns from community
+members and primary data providers. Some are related to the academic
+environment and recognition of academic contributions for example. It would be
+interesting to see some strategy integrated in this type of project that
+creates a motivation for data sharing and contribution to such an "archive" or
+infrastructure and online portal.
+
+Another question that I would like to see addressed is: how could such a system
+be decentralized and used to link globally distributed data sets, i.e. how
+would it scale on a large level, bringing together resources outside of the
+hosting institution, or how could the mentioned data sets be offered on remote
+infrastructures of a similar type, i.e. locally vs. globally linked data sets,
+with loose or restricted links etc.

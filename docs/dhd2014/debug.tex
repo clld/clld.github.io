@@ -1,6 +1,6 @@
 % PyX 0.12.1 texdebug file
 % mode: latex
-% date: Thu Mar  6 10:05:46 2014
+% date: Thu Mar 20 09:27:02 2014
 \scrollmode
 \raiseerror%
 \def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
@@ -41,7 +41,7 @@
 \makeatletter%
 \let\saveProcessOptions=\ProcessOptions%
 \def\ProcessOptions{%
-\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpRnsSQl.pyx.def}%
+\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpH1p68V.pyx.def}%
 \def\c@lor@namefile{dvipsnam.def}%
 \saveProcessOptions}%
 \makeatother%
@@ -75,20 +75,22 @@
 }{1}%
 \PyXInput{6}%
 \ProcessPyXBox{\linewidth=1028.56713truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
+\begin{center}
 \section{http://clld.org}
+\end{center}
 \bf{Help recording the world's language diversity heritage by providing interoperable data publication structures.}
 }%
 }{2}%
 \PyXInput{7}%
 \ProcessPyXBox{\linewidth=1028.56713truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
-\section{Cross-linguistic databases on the web}
+\subsection{Cross-linguistic databases on the web}
 While several archives for cross-linguistic data exist (among them the DOBES archive),
 published databases, i.e. freely accessible, citable datasets are few and far between.
 This is the case despite the fact that many linguists collect lexical or typological
 datasets, serving as primary sources for their own publications.
 
 \subsection{CLLD -- The strategy}
-Since reuse tends to be the determining factor that keeps resources from vanishing,
+Since reuse tends to be the determining factor in keeping resources from vanishing,
 we want to bridge the gap between data collection and data reuse by
 \begin{itemize}
 \item publishing databases thereby incentivizing researchers through recognition;
@@ -101,8 +103,12 @@ This twofold strategy is implemented by three service components:
 \item infrastructural: Glottolog - a comprehensive language catalog and bibliography,
 \item structural: Dictionaria -- a dictionary journal and JCLD -- a journal publishing typological databases,
 \item technological: \texttt{clld} - a software platform for implementing linguistic database applications
-like Glottolog and the journals, but also to serve standalone datasets like WALS, APiCS,
-ASJP, IDS.
+like Glottolog and the journals, but also to serve standalone datasets like
+\begin{itemize}
+\item WALS - The World Atlas of Language Structures,
+\item APiCS - The Atlas of Pidgin and Creole Language Structures,
+\item WOLD - The World Loanword Database
+\end{itemize}
 \end{itemize}
 To maximize resuability
 \begin{itemize}
@@ -114,13 +120,21 @@ To maximize resuability
 \PyXInput{8}%
 \ProcessPyXBox{\linewidth=1028.56713truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
 \subsection{The \texttt{clld} data model}
-\vspace{15.5cm}
+
+It turns out that many linguistic datasets can be modelled using a small set of concepts.
+
+\vspace{0.4cm}
+
+\textit{The core data model:}
+
+\vspace{15.8cm}
 \PyXMarker{cllderd}
 
-The WOLD incarnation of this data model:
+\textit{The WOLD incarnation of this data model:}
 
-\vspace{8.5cm}
+\vspace{8.6cm}
 \PyXMarker{wolderd}
+\vspace{0.8cm}
 }%
 }{4}%
 \PyXInput{9}%
@@ -129,7 +143,7 @@ The WOLD incarnation of this data model:
 % preparing restart of latex
 % PyX 0.12.1 texdebug file
 % mode: latex
-% date: Thu Mar  6 10:05:47 2014
+% date: Thu Mar 20 09:27:03 2014
 \scrollmode
 \raiseerror%
 \def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
@@ -170,7 +184,7 @@ The WOLD incarnation of this data model:
 \makeatletter%
 \let\saveProcessOptions=\ProcessOptions%
 \def\ProcessOptions{%
-\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpRnsSQl.pyx.def}%
+\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpH1p68V.pyx.def}%
 \def\c@lor@namefile{dvipsnam.def}%
 \saveProcessOptions}%
 \makeatother%
@@ -193,22 +207,24 @@ The WOLD incarnation of this data model:
 \begin{document}%
 \PyXInput{5}%
 \ProcessPyXBox{\linewidth=1028.56713truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
-\section{Linked Data - the \texttt{clld} API}
+\subsection{Linked Data - the \texttt{clld} API}
 \begin{itemize}
 \item Defines a unified data access protocol for the web.
 \item Well-suited for distributed data providers
-%\begin{itemize}
-%\item identifiers are URLs which are globally unique,
-%\item RDF and OWL provide the vocabulary to merge resources.
-%\end{itemize}
+\begin{itemize}
+\item identifiers are URLs which are globally unique,
+\item RDF and OWL provide the vocabulary to merge resources.
+\end{itemize}
 \item Provides an easy to implement lowest level of service in a graceful degradation scenario
 \end{itemize}
-
+\vspace{0.5cm}
+}%
+}{1}%
+\PyXInput{6}%
+\ProcessPyXBox{\linewidth=1028.56713truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
 \subsection{Emerging API between data publications and tools}
 Linked Data does already provide a data access protocol, i.e. the first part of an API to
 be used by tools which analyze, visualize or otherwise reuse data.
-
-\vspace{0.1cm}
 
 \textit{Linked Data Explorer accessing Glottolog Linked Data serialized as RDF/XML.}
 
@@ -228,18 +244,26 @@ infrastructure of tools on top of the data.
 Thus, we use this emerging API as definition of a minimal level of service which is easy
 to uphold.
 
+The \texttt{clld} framework will provide an ``emergency exit'' feature, which will create a set of files in an appropriate
+directory structure to be put on a vanilla webserver. This can be done by enumerating the resource types, instances and
+available representations.
+
+So while Linked Data is still not the way researchers actually do or want to access data (at least if they can get away with csv instead),
+there's something to be gained for the developer: A stable API across phases of deployment which can be used by any additional services
+built on top of the data.
+
 Since maintaining the minimal level of service is rather easy, providing sustainable
 services becomes much more likely because scenarios like transfer of ownership become
 feasible.
 }%
-}{1}%
-\PyXInput{6}%
+}{2}%
+\PyXInput{7}%
 \end{document}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % preparing restart of latex
 % PyX 0.12.1 texdebug file
 % mode: latex
-% date: Thu Mar  6 10:05:47 2014
+% date: Thu Mar 20 09:27:03 2014
 \scrollmode
 \raiseerror%
 \def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
@@ -280,7 +304,7 @@ feasible.
 \makeatletter%
 \let\saveProcessOptions=\ProcessOptions%
 \def\ProcessOptions{%
-\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpRnsSQl.pyx.def}%
+\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpH1p68V.pyx.def}%
 \def\c@lor@namefile{dvipsnam.def}%
 \saveProcessOptions}%
 \makeatother%
@@ -303,90 +327,21 @@ feasible.
 \begin{document}%
 \PyXInput{5}%
 \ProcessPyXBox{\linewidth=1028.56713truept\vtop{\hsize=\linewidth\textwidth=\linewidth{}
-\subsection{The data browser}
+\subsection{The \texttt{clld} data browser}
+A reference implementation for visualising CLLD datasets.
 
-Viewing a valueset of APiCS Online:
+\textit{Viewing a valueset of APiCS Online:}
 
 \vspace{12.5cm}
 \PyXMarker{valueset}
+\vspace{0.4cm}
 
-Viewing a Dictionaria word:
+\textit{Viewing a Dictionaria word:}
 
 \vspace{13.5cm}
 \PyXMarker{unit}
 
 }%
-}{1}%
-\PyXInput{6}%
-\end{document}%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% preparing restart of latex
-% PyX 0.12.1 texdebug file
-% mode: latex
-% date: Thu Mar  6 10:05:47 2014
-\scrollmode
-\raiseerror%
-\def\PyX{P\kern-.3em\lower.5ex\hbox{Y}\kern-.18em X}%
-\gdef\PyXBoxHAlign{0}%
-\newbox\PyXBox%
-\newbox\PyXBoxHAligned%
-\newdimen\PyXDimenHAlignLT%
-\newdimen\PyXDimenHAlignRT%
-\gdef\PyXFlushHAlign{0}%
-\def\PyXragged{%
-\leftskip=0pt plus \PyXFlushHAlign fil%
-\rightskip=0pt plus 1fil%
-\advance\rightskip0pt plus -\PyXFlushHAlign fil%
-\parfillskip=0pt%
-\pretolerance=9999%
-\tolerance=9999%
-\parindent=0pt%
-\hyphenpenalty=9999%
-\exhyphenpenalty=9999}%
-\newbox\PyXBoxVBox%
-\newdimen\PyXDimenVBox%
-\newbox\PyXBoxVAlign%
-\newdimen\PyXDimenVAlign%
-\newdimen\PyXDimenVShift%
-\long\def\ProcessPyXBox#1#2{%
-\setbox\PyXBox=\hbox{{#1}}%
-\PyXDimenHAlignLT=\PyXBoxHAlign\wd\PyXBox%
-\PyXDimenHAlignRT=\wd\PyXBox%
-\advance\PyXDimenHAlignRT by -\PyXDimenHAlignLT%
-\gdef\PyXBoxHAlign{0}%
-\immediate\write16{PyXBox:page=#2,lt=\the\PyXDimenHAlignLT,rt=\the\PyXDimenHAlignRT,ht=\the\ht\PyXBox,dp=\the\dp\PyXBox:}%
-\setbox\PyXBoxHAligned=\hbox{\kern-\PyXDimenHAlignLT\box\PyXBox}%
-\ht\PyXBoxHAligned0pt%
-{\count0=80\count1=121\count2=88\count3=#2\shipout\box\PyXBoxHAligned}}%
-\def\PyXInput#1{\immediate\write16{PyXInputMarker:executeid=#1:}}%
-\def\PyXMarker#1{\hskip0pt\special{PyX:marker #1}}%%
-\PyXInput{1}%
-\makeatletter%
-\let\saveProcessOptions=\ProcessOptions%
-\def\ProcessOptions{%
-\def\Gin@driver{/home/robert/venvs/clld/clld.github.io/docs/dhd2014/tmpRnsSQl.pyx.def}%
-\def\c@lor@namefile{dvipsnam.def}%
-\saveProcessOptions}%
-\makeatother%
-\PyXInput{2}%
-\documentclass{article}%
-\PyXInput{3}%
-%
-\usepackage[latin1]{inputenc}
-\usepackage{type1cm,pifont}
-\renewcommand\labelitemi{\ding{51}}
-\renewcommand{\familydefault}{\sfdefault}
-\newcommand\head[1]{{\fontsize{70}{75}\selectfont\bfseries#1\vspace{5mm}\par}}
-\newcommand\subhead[1]{{\fontsize{41}{44}\selectfont\bfseries#1\par}}
-\renewcommand\section[1]{{\fontsize{34}{37}\selectfont\bfseries#1\vspace{5mm}\par}}
-\renewcommand\subsection[1]{{\fontsize{32}{33}\vspace{4mm}\selectfont\bfseries#1\vspace{0mm}\par}}
-\renewcommand\normalsize{\fontsize{30}{32}\selectfont}\normalsize
-\leftmargini2em\labelwidth1em\labelsep0.5em\parindent0pt\parskip1ex
-%
-\PyXInput{4}%
-\begin{document}%
-\PyXInput{5}%
-\ProcessPyXBox{\gdef\PyXBoxHAlign{1.00000}\gdef\PyXFlushHAlign{1.00000}\PyXragged{}\fontsize{16}{18}\selectfont Printed at Universit\"atsrechenzentrum Leipzig%
 }{1}%
 \PyXInput{6}%
 \end{document}%

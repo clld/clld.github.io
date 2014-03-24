@@ -11,7 +11,7 @@
 \address{Max Planck Institute for Evolutionary Anthropology\\ Deutscher Platz 6, D-04103 Leipzig\\ % Your institution
 robert\_forkel@eva.mpg.de}
 
-\abstract{The \em{Cross-Linguistic Linked Data} project (CLLD)\footnote{\url{http://clld.org}} helps record the world's language diversity heritage 
+\abstract{The \em{Cross-Linguistic Linked Data} project (CLLD -- \url{http://clld.org}) helps record the world's language diversity heritage
 by establishing an interoperable data publishing infrastructure.
 I describe the project and the environment it operates in,
 with an emphasis on the datasets that are published within the project.
@@ -25,12 +25,16 @@ Finally I gauge the impact the project may have on its environment.\\ \newline \
 
 \section{Cross-Linguistic data -- the status quo}
 For the purposes of this paper I define cross-linguistic data as either data on many languages, 
-or as data about small languages. I also restrict it to textual data.\footnote{There does not seem to be much of a 
+or as data about under-resourced languages. I also restrict it to textual data.\footnote{There does not seem to be much of a
 Linked Data story for multimedia content anyway.}
 Thus, this data will mostly come in the form of 
 wordlists, dictionaries, phoneme inventories, typological surveys, small collections of glossed text, grammars, or bibliographies.
 
-Since data collection via fieldwork is well respected in the community
+This kind of data is the result or forms the basis of much of the work being done at the
+department of linguistics of the MPI for Evolutionary Anthropology in Leipzig which is
+one of the centers of what may be called ``language diversity research''.
+
+Since data collection via fieldwork is well respected in this community
 %-- writing a grammar seems to be almost like rites of passage
 %for becoming a serious linguist -- 
 there is not a shortage of data;
@@ -56,8 +60,8 @@ Most datasets\footnote{\url{http://clld.org/datasets.html}} under consideration 
 \begin{description}
 \item[WALS] The \href{http://wals.info}{World Atlas of Language Structures} is now online in its third implementation.
 \item[APiCS] The \href{http://apics-online.info}{Atlas of Pidgin and Creole Language Structures} is a typological database modeled after WALS but focussing on pidgins and creoles.
-\item[ASJP] \href{http://wwwstaff.eva.mpg.de/~wichmann/ASJPHomePage.htm}{The Automated Similarity Judgement Program} has collected almost 7000 small wordlists of languages and varieties from all over the world.
-\item[IDS] The Intercontinental Dictionary Series is a collection of extensive wordlists (ca.~1300 items)
+\item[ASJP] (to be published in 2014) \href{http://wwwstaff.eva.mpg.de/~wichmann/ASJPHomePage.htm}{The Automated Similarity Judgement Program} has collected almost 7000 small wordlists of languages and varieties from all over the world.
+\item[IDS] (to be published in 2014) The Intercontinental Dictionary Series is a collection of extensive wordlists (ca.~1300 items)
 collected for a curated set of meanings covering more than 220 languages.
 \item[AfBo] \href{http://afbo.info/}{A world-wide survey of affix borrowing} describes 101 cases of affix borrowing from one language into another.
 \item[WOLD] \href{http://wold.livingsources.org}{The World Loanword Database} contains extensive vocabularies (similar to IDS) for 41 languages annotated for loanword status and source words.
@@ -70,20 +74,34 @@ But CLLD also provides infrastructure to publish datasets originating outside th
 \item Bigger datasets can become part of CLLD following an ``edited series'' publication model. There are already two datasets in this category:
 \begin{description}
 \item[eWAVE] The electronic \href{http://ewave-atlas.org/}{World Atlas of Varieties of English} is a typological database containing information on 76 varieties of English (and highlighting the fact that ISO 639-3 is not sufficient to identify language varieties).
-\item[PHOIBLE] The \href{http://phoible.org}{PHOnetics Information Base and LExicon} is a large collection of phoneme inventories for languages from all over the world.
+\item[PHOIBLE] (to be published 2014) The \href{http://phoible.org}{PHOnetics Information Base and LExicon} is a large collection of phoneme inventories for languages from all over the world.
 \end{description}
 \item Last but not least the \texttt{clld} framework,\footnote{\url{https://github.com/clld/clld}} upon which all publications are built, is open source software and can be freely reused.
 \end{itemize}
 
 \subsection{The \texttt{clld} framework}
-Recognizing that the field of interoperable linguistic data publication is still in its beginnings\footnote{Although this may have been so for almost 10 years.} adaptability and in general an iterative approach is called for. Thus, we aim to ``standardize'' on a lower level, namely 
-on the publication platform; in doing so we hope to make published resources -- i.e.~the interface to the data -- more adaptable.%\footnote{This may be called the
+Recognizing that the field of interoperable linguistic data publication is still in its
+beginnings\footnote{Although this may have been so for almost 10 years.} adaptability and in general an
+iterative approach is called for. Thus, we aim to ``standardize'' on a lower
+level, namely on the publication platform; in doing so we hope to make published
+resources -- i.e.~the interface to the data -- more adaptable.%\footnote{This may be called the
 %"microsoft model" for standardization and clearly has its disadvantages in case we don't stick to "don't be evil".}
 \footnote{It should be noted that this is not the first attempt at standardization of a software stack for cross-linguistic databases \cite{dimitriadis2002}; but today's options for community driven development of open source software promise to make a real difference.}
-In the first year of the project\footnote{\url{http://clld.org/2014/01/03/new-year.html}} a cross-linguistic database framework -- the \texttt{clld} framework\footnote{Spelled in lowercase conforming to common rules for names of Python software packages} -- has been developed, which will be the focus of the following sections. 
+So our aim is at the same time more modest than
+semantic interoperability and more ambitious, because the platform is open to serving non-RDF serializations
+of resources should these become de-facto standards.
 
+In the first year of the project\footnote{\url{http://clld.org/2014/01/03/new-year.html}} a cross-linguistic database framework -- the \texttt{clld} framework\footnote{Spelled in lowercase conforming to common rules for names of Python software packages} -- has been
+developed, which will be the focus of the following sections.
 Publishing datasets as \texttt{clld} applications should be seen as a perfect basis for publishing it as Linked Data while at the same time publishing it in a more traditional way (with respect to Web-publishing). It is also a good way to extend the uniformity of the interface from the machine readable data to the user interface accessed with the browser.
 While I understand the strength of the Linked Data approach to publishing, being able to also put an attractive human user interface on top of a dataset must not be underestimated when it comes to convincing linguists to open up their data.
+Thus the \texttt{clld} framework provides a
+\begin{itemize}
+\item a common core data model,
+\item a basic API built on Linked Data principles
+\item and what could be termed a ``reference implementation'' of a dataset browser as user-friendly
+interface for humans.
+\end{itemize}
 
 %I also want to stress that sustainable and maintainable infrastructure has not been a strong point of Linked Data efforts in the past.
 
@@ -91,8 +109,7 @@ While I understand the strength of the Linked Data approach to publishing, being
 \subsubsection{The data model}
 \label{sec:datamodel}
 
-Part of the \texttt{clld} framework is a core data model.
-The design of this data model was guided by three principles:
+The design of the data model was guided by three principles:
 \begin{enumerate}
 \item All the target datasets have to ``fit in'' without loss.
 \item The data model must be as abstract as necessary, as concrete as possible.
@@ -113,13 +130,16 @@ It turns out that most of the datasets we encountered thus far can be modeled us
 \item[Language] often rather a languoid in the sense of \newcite{dlc623}.
 \item[Parameter] a feature that can be coded or determined for a language
 -- e.g. a word meaning, or a typological feature.
-\item[ValueSet] set of values measured/observed/recorded for one language and one parameter.
-\item[Value] a single measurement (different scales can be modeled using custom attributes).
+\item[ValueSet] set of values measured/observed/recorded for one language and one parameter,
+i.e. the points in the Language-Parameter-matrix.
+\item[Value] a single measurement (different scales can be modeled using custom attributes).\footnote{The only assumption
+the core data model makes about values is that they have a name, i.e. a textual description;
+datatypes for values can be implemented as application-specific extensions of this core model.}
 \item[Unit] parts of a language system that are annotated, such as sounds, words or constructions.
 \item[UnitParameter] a feature that can be determined for a unit.
 \item[UnitValue] measurement for one unit and one unitparameter.
 \item[Source] pointer to secondary literature - e.g. bibliographical records.
-\item[Sentence] a mini-corpus, preferably in the form of interlinear glossed text\footnote{\url{http://en.wikipedia.org/wiki/Interlinear\_gloss}} according to the Leipzig Glossing Rules.\footnote{\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}}
+\item[Sentence] a small piece of text, preferably in the form of interlinear glossed text\footnote{\url{http://en.wikipedia.org/wiki/Interlinear\_gloss}} according to the Leipzig Glossing Rules.\footnote{\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}}
 \end{description}
 
 The relations between these entities are shown in Figure~\ref{cllddatamodel}. Note that Dimitriadis' \emph{Construction} maps to our \emph{Unit} and \emph{Example} to \emph{Sentence}~\cite[p.~15]{burs}.
@@ -139,7 +159,8 @@ to transparently add attributes to entities of the core data model.
 
 
 \begin{figure}[h!]
-  \caption{WOLD data model}
+  \caption{WOLD data model; \textit{SynSet}s are sets of synonyms, a \textit{Counterpart}
+  is an instance of the many-to-many relation between Words and Meanings.}
   \centering
 \includegraphics[width=8cm]{wold_erd.png}
 \label{wolddatamodel}
@@ -191,20 +212,22 @@ available representations.
 %application of linked data as lowest level of service in a graceful degradation of service strategy.
 %-> hightlight the API/data access aspect of Linked Data (as opposed to the data model aspect of RDF)
 
-So while Linked Data is still not the way researchers actually do or want to access data (at least if they can get away with csv instead), 
-there's something to be gained for the developer: A stable API across phases of deployment which can be used by any additional services 
+So while Linked Data is still not the way researchers actually do or want to access data (at least if they can get away with csv instead),
+there's something to be gained for the developer: A stable API across phases of deployment which can be used by any additional services
 built on top of the data.
 
 
 \subsection{Linked Data}
 
 \subsection{URLs and resources}
-We do not distinguish \emph{things} from \emph{Web documents} as recommended by \newcite{cooluris}, because the solutions to achieve this
-conflict with our requirements for easy hosting of the lowest level of service outlined in section~\ref{sec:sustainability} 
-%These conflicts are also echoed in the list of practical limitations given in Tennison 2011~\cite{tennison2011}
-Arguably, using a concept of languages as sets of doculects (following \newcite{dlc623}), the \emph{thing} can to some extent be identified 
-with the web document describing it anyway.
-%    (which is the opposite solution to the one proposed in http://www.ibiblio.org/hhalpin/homepage/publications/indefenseofambiguity.html "In defense of ambiguity")
+We do not distinguish \emph{things} from \emph{Web documents} as recommended by \newcite{cooluris},
+because the solutions to achieve this conflict with our requirements for easy hosting of the lowest level
+of service outlined in section~\ref{sec:sustainability}
+These conflicts are also echoed in the list of practical limitations given in Tennison 2011~\cite{tennison2011}.
+Arguably, using a concept of languages as sets of doculects (following \newcite{dlc623}), the \emph{thing} can
+to some extent be identified with the web document describing it anyway
+(which is the opposite solution to the one proposed in \newcite{ambiguity}.
+%http://www.ibiblio.org/hhalpin/homepage/publications/indefenseofambiguity.html "In defense of ambiguity").
 %    see also http://www.jenitennison.com/blog/node/159 What Do URIs Mean Anyway? (Jeni Tennison)
 
 While each resource links to its originating
