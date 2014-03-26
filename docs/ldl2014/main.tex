@@ -31,7 +31,7 @@ Thus, this data will mostly come in the form of
 wordlists, dictionaries, phoneme inventories, typological surveys, small collections of glossed text, grammars, or bibliographies.
 
 This kind of data is the result or forms the basis of much of the work being done at the
-department of linguistics of the MPI for Evolutionary Anthropology in Leipzig which is
+department of linguistics of the Max Planck Institute for Evolutionary Anthropology (MPI EVA) in Leipzig which is
 one of the centers of what may be called ``language diversity research''.
 
 Since data collection via fieldwork is well respected in this community
@@ -56,7 +56,8 @@ We try to do so by:
 \end{itemize}
 
 \subsection{The datasets}
-Most datasets\footnote{\url{http://clld.org/datasets.html}} under consideration right now have been compiled by or in association with the department of linguistics at the Max Planck Institute for Evolutionary Anthropology (MPI EVA):
+Most datasets\footnote{\url{http://clld.org/datasets.html}} under consideration right now
+have been compiled by or in association with the department of linguistics at the MPI EVA:
 \begin{description}
 \item[WALS] The \href{http://wals.info}{World Atlas of Language Structures} is now online in its third implementation.
 \item[APiCS] The \href{http://apics-online.info}{Atlas of Pidgin and Creole Language Structures} is a typological database modeled after WALS but focussing on pidgins and creoles.
@@ -116,8 +117,11 @@ The design of the data model was guided by three principles:
 \item The data model must be extensible.
 \end{enumerate}
 
-Note that these guidelines mirror the requirements set forth in Section 6.1 of \newcite{dimitriadis2002} for a \emph{linguistic ``metalanguage''}, ensuring unified access to typological databases.
-It turns out that most of the datasets we encountered thus far can be modeled using the following concepts.\footnote{Or as \newcite{burs} put it (further corroborating our experience): ``survey databases are all alike''.}
+Note that these guidelines mirror the requirements set forth in Section 6.1 of \newcite{dimitriadis2002}
+for a \emph{linguistic ``metalanguage''}, ensuring unified access to typological databases.
+It turns out that most of the datasets we encountered thus far can be modeled using the
+following concepts.\footnote{Or as \newcite{burs} put it (further corroborating our experience):
+``survey databases are all alike''.}
 
 %
 % http://languagelink.let.uu.nl/burs/docs/burs-design.pdf
@@ -139,13 +143,18 @@ datatypes for values can be implemented as application-specific extensions of th
 \item[UnitParameter] a feature that can be determined for a unit.
 \item[UnitValue] measurement for one unit and one unitparameter.
 \item[Source] pointer to secondary literature - e.g. bibliographical records.
-\item[Sentence] a small piece of text, preferably in the form of interlinear glossed text\footnote{\url{http://en.wikipedia.org/wiki/Interlinear\_gloss}} according to the Leipzig Glossing Rules.\footnote{\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}}
+\item[Sentence] a small piece of text, preferably in the form of interlinear glossed
+text\footnote{\url{http://en.wikipedia.org/wiki/Interlinear\_gloss}} according to the
+Leipzig Glossing Rules.\footnote{\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}}
+\item[Contribution] a collection of ValueSets that shares provenance information, e.g. authorship.\footnote{Thus,
+a CLLD dataset is similar to an edited volume in that it may aggregate data from multiple contributors.}
 \end{description}
 
-The relations between these entities are shown in Figure~\ref{cllddatamodel}. Note that Dimitriadis' \emph{Construction} maps to our \emph{Unit} and \emph{Example} to \emph{Sentence}~\cite[p.~15]{burs}.
+The relations between these entities are shown in Figure~\ref{cllddatamodel}. Note that
+Dimitriadis' \emph{Construction} maps to our \emph{Unit} and \emph{Example} to \emph{Sentence}~\cite[p.~15]{burs}.
 
 \begin{figure}[h!]
-  \caption{CLLD core data model}
+  \caption{Entity-relationship diagram of the CLLD core data model}
   \centering
 \includegraphics[width=8cm]{clld_erd.png}
 \label{cllddatamodel}
@@ -159,8 +168,8 @@ to transparently add attributes to entities of the core data model.
 
 
 \begin{figure}[h!]
-  \caption{WOLD data model; \textit{SynSet}s are sets of synonyms, a \textit{Counterpart}
-  is an instance of the many-to-many relation between Words and Meanings.}
+  \caption{Entity-relationship diagram of the WOLD data model; \textit{SynSet}s are sets of synonyms,
+  a \textit{Counterpart} is an instance of the many-to-many relation between Words and Meanings.}
   \centering
 \includegraphics[width=8cm]{wold_erd.png}
 \label{wolddatamodel}
@@ -170,20 +179,29 @@ to transparently add attributes to entities of the core data model.
 \subsubsection{The implementation}
 \label{sec:implementation}
 CLLD applications are implemented using the \texttt{clld} framework.\footnote{\url{https://github.com/clld/clld}}
-This framework in turn is based on the python packages \texttt{pyramid} and \texttt{SQLAlchemy} and allows building web applications accessing a relational database.
+This framework in turn is based on the python packages \texttt{pyramid} and \texttt{SQLAlchemy}
+and allows building web applications accessing a relational database.
 Using an RDF graph database as main storage was out of the question because of its non-standard requirements
-in terms of deployment, administration and maintenance, which would conflict with the strategy for sustainability described in section~\ref{sec:sustainability}
+in terms of deployment, administration and maintenance, which would conflict with the strategy
+for sustainability described in section~\ref{sec:sustainability}
 
 These technology choices offer the following two essential mechanisms for extensibility:
 \begin{enumerate}
-\item The joined table inheritance\footnote{\url{http://docs.sqlalchemy.org/en/latest/orm/inheritance.html}} model provided with \texttt{SQLAlchemy} allows for transparent extension of core database entities. For each core entity
-a CLLD application may define an extended entitity, adding attributes and relations. Accessing the database using \texttt{SQLAlchemy} makes sure
+\item The joined table inheritance\footnote{\url{http://docs.sqlalchemy.org/en/latest/orm/inheritance.html}}
+model provided with \texttt{SQLAlchemy} allows for transparent extension of core database entities.
+For each core entity a CLLD application may define an extended entitity, adding attributes and relations.
+Accessing the database using \texttt{SQLAlchemy} makes sure
 that whenever the core entitity is queried an instance of the extended entity is returned.
-\item The Zope component architecture\footnote{\url{http://www.muthukadan.net/docs/zca.html}} within pyramid\footnote{\url{http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/zca.html}} provides an implementation of concepts like interface and adapter, which in turn make it possible to provide
-default behavior for entities which works with extended entities as well and can easily be overridden by registering custom behavior.
+\item The Zope component architecture\footnote{\url{http://www.muthukadan.net/docs/zca.html}}
+within pyramid\footnote{\url{http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/zca.html}}
+provides an implementation of concepts like interface and adapter, which in turn make it possible to provide
+default behavior for entities which works with extended entities as well and can easily be overridden
+by registering custom behavior.
 \end{enumerate}
 
-Using these mechanisms deviations in terms of data model or user interface are possible, but the default 
+Using these mechanisms deviations in terms of data model or user interface are possible, but the
+default behavior\footnote{By default, each resource class comes with a list view and a detailed view
+for each instance, which in turn can be serialized in various formats like JSON, RDF+XML, etc.}
 should be good enough most of the time (at least for the data consumed by machines only).
 
 \subsection{Sustainability: The idea of graceful degradation of service}
@@ -194,32 +212,50 @@ Lacking longterm institutional/financial support, a project may employ several m
 \item Make transfer of ownership easy.
 \end{enumerate}
 
-With respect to the CLLD databases the latter means that we always have to take into consideration what running such a service
-entails. From our own experience it seems clear that running interactive web applications without the ability to further develop 
+With respect to the CLLD databases the latter means that we always have to take into
+consideration what running such a service entails. From our own experience it seems
+clear that running interactive web applications without the ability to further develop
 the software will lead to dysfunctional applications quickly (within a few years).
 
-But since this scenario is not unlikely in the event of a transfer of ownership, we would like to define a more stable, and more easily
-maintainable level of service for our applications. Thus, we use the Linked Data principles to define a lowest level of service we
-want to guarantee for CLLD applications. Doing so means that running CLLD applications can be as cheap as hosting static files on a
-web server (and possibly keeping domain registrations valid).
+But since this scenario is not unlikely in the event of a transfer of ownership, we would
+like to define a more stable, and more easily maintainable level of service for our
+applications. Thus, we use the Linked Data principles to define a lowest level of service we
+want to guarantee for CLLD applications. Doing so means that running CLLD applications can
+be as cheap as hosting static files on a web server (and possibly keeping domain
+registrations valid).
 
-Essentially we are following the Linked Data principles to provide a REST API for our datasets that is easy to maintain. Notably, this API is already used today by search engines, so this aspect of the service will survive also in the lowest level. This also means that we hope \emph{sustainable operability} as defined by \newcite{dimitriadis2008} can be provided on top of the Linked Data stack, in particular on top of public sparql endpoints. Thus, we propose Linked Data to serve as the \emph{Integrated Data and Documentation Format} described in \newcite{dimitriadis2008} with the additional benefit of a well-defined access protocol.
+Essentially we are following the Linked Data principles to provide a REST API for our
+datasets that is easy to maintain. Notably, this API is already used today by search engines,
+so this aspect of the service will survive also in the lowest level. This also means that
+we hope \emph{sustainable operability} as defined by \newcite{dimitriadis2008} can be
+provided on top of the Linked Data stack, in particular on top of public sparql endpoints.
+Thus, we propose Linked Data to serve as the \emph{Integrated Data and Documentation Format}
+described in \newcite{dimitriadis2008} with the additional benefit of a well-defined access protocol.
 
-The \texttt{clld} framework will provide an ``emergency exit'' feature, which will create a set of files in an appropriate
-directory structure to be put on a vanilla webserver. This can be done by enumerating the resource types, instances and
-available representations.
+The \texttt{clld} framework will provide an ``emergency exit'' feature, which will create
+a set of files (corresponding to the list and detailed views in various formats as described
+above) in an appropriate directory structure to be put on a vanilla webserver.
+This can be done by enumerating the resource types, instances and available representations.
 
 %application of linked data as lowest level of service in a graceful degradation of service strategy.
 %-> hightlight the API/data access aspect of Linked Data (as opposed to the data model aspect of RDF)
 
-So while Linked Data is still not the way researchers actually do or want to access data (at least if they can get away with csv instead),
-there's something to be gained for the developer: A stable API across phases of deployment which can be used by any additional services
+So while Linked Data is still not the way many researchers interested in our datasets\footnote{Most of
+the datasets under consideration here are most interesting to typologists rather than computational
+linguists.}
+actually do or want to access data (at least if they can get away with csv instead), there is
+something to be gained for the
+developer: A stable API across phases of deployment which can be used by any additional services
 built on top of the data.
 
 
 \subsection{Linked Data}
 
-\subsection{URLs and resources}
+As described above, Linked Data plays an important role in the strategy of the CLLD project.
+In the following sections I describe our design choices regarding the implementation of Linked
+Data principles for the publication of CLLD datasets.
+
+\subsubsection{URLs and resources}
 We do not distinguish \emph{things} from \emph{Web documents} as recommended by \newcite{cooluris},
 because the solutions to achieve this conflict with our requirements for easy hosting of the lowest level
 of service outlined in section~\ref{sec:sustainability}
@@ -230,109 +266,141 @@ to some extent be identified with the web document describing it anyway
 %http://www.ibiblio.org/hhalpin/homepage/publications/indefenseofambiguity.html "In defense of ambiguity").
 %    see also http://www.jenitennison.com/blog/node/159 What Do URIs Mean Anyway? (Jeni Tennison)
 
-While each resource links to its originating
-dataset, and this dataset is described by a VoID description (see below), perhaps the most important bit of provenance information is the domain part of 
-a resource's identifying URL. Each dataset can employ additional schemes of conveying additional provenance information, though, like adding 
-a version history.
-It is an explicit goal of the project to keep the resource URLs stable and resolvable for as long as possible, thus, we intend our URLs to be ``cool'' in the old sense, too.
+While each RDF resource in CLLD datasets links to its originating
+dataset, and this dataset is described by a VoID description (see below), perhaps the most
+important bit of provenance information is the domain part of
+a resource's identifying URL.\footnote{Since CLLD datasets can be aggregations of multiple
+contributions, additional -- more fine grained -- provenance information is typically available,
+but for purposes of quality assessment the overriding factor will often be the fact that a
+ValueSet is part of an aggregation compiled under editorial control.} Each dataset can employ
+additional schemes of conveying additional provenance information, though, like adding a version history.
+It is an explicit goal of the project to keep the resource URLs stable and resolvable for
+as long as possible, thus, we intend our URLs to be ``cool'' in the old sense, too, and more
+generally to fulfill the ``social contract'' between publisher and user outlined in \newcite{ldbp}.
 
-All entities in the clld data model (see section~\ref{sec:datamodel}) map to resource types in the RDF formulation of this model.
-Since all entities have a local identifier, a name and a description, and each CLLD dataset is served from a distinct domain,
-we already have all the pieces necessary to fulfill basic requirements for RDF descriptions.\footnote{e.g. as specified for bio2rdf in its
+All entities in the clld data model (see section~\ref{sec:datamodel}) map to resource types
+in the RDF formulation of this model. Since all entities have a local identifier, a name
+and a description, and each CLLD dataset is served from a distinct domain,
+we already have all the pieces necessary to fulfill basic requirements for RDF
+descriptions.\footnote{e.g. as specified for bio2rdf in its
 RDFization-Guide\footnote{https://github.com/bio2rdf/bio2rdf-scripts/wiki/RDFization-Guide}}
 
-\subsection{VoID} 
+\subsubsection{VoID}
 \label{sec:void}
 The \texttt{clld} framework provides a VoID dataset description for each dataset. This description is populated from
 the metadata specified for the dataset, but also using the knowledge the framework has about its entities and capabilities.
-E.g. the VoID description for Glottolog\footnote{http://glottolog.org/void.ttl} describes partitions of the dataset into entitity-type specific subsets (\texttt{void:Dataset}),
-and points to data dumps for these, because the number of resources would make accessing the data via crawling (while still possible) 
-time consuming.
+E.g. the VoID description for Glottolog\footnote{http://glottolog.org/void.ttl} describes
+partitions of the dataset into entitity-type specific subsets (\texttt{void:Dataset}),
+and points to data dumps for these, because the number of resources would make accessing
+the data via crawling (while still possible) time consuming.
 
-The VoID description and the backlinks of each resource to the dataset are used to provide provenance and license information for each resource.
-Following the recommendations for deploying VoID descriptions in~\cite{void}, the description is available at the path \texttt{/void.ttl} of CLLD applications as well as via content negotiation at the base URL.
+The VoID description and the backlinks of each resource to the dataset are used to provide
+provenance and license information for each resource. Following the recommendations for
+deploying VoID descriptions in~\cite{void}, the description is available at the path
+\texttt{/void.ttl} of CLLD applications as well as via content negotiation at the base URL.
 
 
-\subsection{HTTP}
-The \texttt{clld} framework uses content negotiation (see figure~\ref{fig:conneg})
+\subsubsection{HTTP}
+
+% TODO: intro: we want to highlight the uniform-access aspects of linked data, and these
+% pretty much built on features of HTTP
+
+The \texttt{clld} framework uses content negotiation %(see figure~\ref{fig:conneg})
 to make sure that RDF resources can be accessed right now just as they would in the ``plain file on webserver'' scenario.
-\begin{figure}
-\label{fig:conneg}
-\caption{HTTP response headers for a resource request with and without explicit \texttt{Accept} header.}
-{\scriptsize
-\begin{verbatim}
-~$ curl -I 
-   http://glottolog.org/resource/languoid/id/tomo1245
-HTTP/1.1 200 OK
-Content-Type: text/html; charset=utf-8
-\end{verbatim}
-}
+%\begin{figure}
+%\label{fig:conneg}
+%\caption{HTTP response headers for a resource request with and without explicit \texttt{Accept} header.}
+%{\scriptsize
+%\begin{verbatim}
+%~$ curl -I
+%   http://glottolog.org/resource/languoid/id/tomo1245
+%HTTP/1.1 200 OK
+%Content-Type: text/html; charset=utf-8
+%\end{verbatim}
+%}
 
-{\scriptsize
-\begin{verbatim}
-~$ curl -I -H "accept: application/rdf+xml" 
-   http://glottolog.org/resource/languoid/id/tomo1245
-HTTP/1.1 200 OK
-Content-Type: application/rdf+xml; charset=utf-8
-\end{verbatim}
-}
-\end{figure}
-HTTP link headers are used to identify canonical URLs and alternative representations (see figure~\ref{fig:linkheader}).
+%{\scriptsize
+%\begin{verbatim}
+%~$ curl -I -H "accept: application/rdf+xml"
+%   http://glottolog.org/resource/languoid/id/tomo1245
+%HTTP/1.1 200 OK
+%Content-Type: application/rdf+xml; charset=utf-8
+%\end{verbatim}
+%}
+%\end{figure}
+HTTP link headers are used to identify canonical URLs and alternative representations. %(see figure~\ref{fig:linkheader}).
 
-\begin{figure}
-\label{fig:linkheader}
-\caption{HTTP \texttt{Link} header returned for a resource request.}
-{\scriptsize
-\begin{verbatim}
-~$ curl -I 
-   http://glottolog.org/resource/languoid/id/stan1295
-HTTP/1.1 200 OK
-...
-Link: <http://glottolog.org/resource/languoid
-       /id/stan1295.html>; 
-rel="alternate"; type="text/html"
-Link: <http://glottolog.org/resource/languoid
-       /id/stan1295.rdf>; 
-rel="alternate"; type="application/rdf+xml"
-...
+%\begin{figure}
+%\label{fig:linkheader}
+%\caption{HTTP \texttt{Link} header returned for a resource request.}
+%{\scriptsize
+%\begin{verbatim}
+%~$ curl -I
+%   http://glottolog.org/resource/languoid/id/stan1295
+%HTTP/1.1 200 OK
+%...
+%Link: <http://glottolog.org/resource/languoid
+%       /id/stan1295.html>;
+%rel="alternate"; type="text/html"
+%Link: <http://glottolog.org/resource/languoid
+%       /id/stan1295.rdf>;
+%rel="alternate"; type="application/rdf+xml"
+%...
+%
+%~$ curl -I
+%   http://glottolog.org/resource/languoid
+%   /id/stan1295.rdf
+%HTTP/1.1 200 OK
+%...
+%Link: <http://glottolog.org/resource/languoid
+%       /id/stan1295>;
+%rel="canonical"; type="text/html"
+%\end{verbatim}
+%}
+%\end{figure}
 
-~$ curl -I 
-   http://glottolog.org/resource/languoid
-   /id/stan1295.rdf
-HTTP/1.1 200 OK
-...
-Link: <http://glottolog.org/resource/languoid
-       /id/stan1295>; 
-rel="canonical"; type="text/html"
-\end{verbatim}
-}
-\end{figure}
-
-While this feature might not survive in the lowest level of service (unless some custom webserver configuration is added), 
-it shows the capability of the framework to enumerate the URL space of its resource graph.
+While this feature might not survive in the lowest level of service (unless some custom
+webserver configuration is added), it shows the capability of the framework to enumerate
+the URL space of its resource graph.
 
 
-\subsection{Linking with other resources and vocabularies}
+\subsubsection{Linking with other resources and vocabularies}
 
-Linking to resources outside the CLLD universe is clearly in need of further investigation. Linking to dbpedia based on ISO 639-3 codes of languages is possible.
-Linking sources to bibliographical records e.g.~in WorldCat is hampered by the fact that identification of matching records is error prone and not doable ``by hand'' for our typical source collections with more than 1000 records.
+Linking to resources outside the CLLD universe is clearly in need of further investigation.
+Linking to dbpedia based on ISO 639-3 codes of languages is possible.
+Linking sources to bibliographical records e.g.~in WorldCat is hampered by the fact that
+identification of matching records is error prone and not doable ``by hand'' for our typical
+source collections with more than 1000 records.
 
-It should be noted, though, that some of our datasets carry the potential to serve as hubs in the Linked Data cloud themselves:
+It should be noted, though, that some of our datasets carry the potential to serve as hubs
+in the Linked Data cloud themselves:
 \begin{itemize}
-\item Glottolog as language catalog and comprehensive bibliography. The desirability of alternative language catalogs (in addition to Ethnologue or ISO 639-3) is described in
-\newcite{dlc610} and can easily be seen looking at a dataset like eWAVE or APiCS, where many of the languages under investigation are not included in either Ethnologue or ISO-639-3.
-\item IDS as provider of semi-standard meanings for the creation of wordlists.\footnote{It would probably make sense to link these meanings to wordnet wordsenses but it seems difficult to determine authoritative URLs for these.}
+\item Glottolog as language catalog and comprehensive bibliography. The desirability of
+alternative language catalogs (in addition to Ethnologue or ISO 639-3) is described in
+\newcite{dlc610} and can easily be seen looking at a dataset like eWAVE or APiCS, where
+many of the languages under investigation are not included in either Ethnologue or ISO-639-3.
+\item IDS as provider of semi-standard meanings for the creation of wordlists.\footnote{It
+would probably make sense to link these meanings to wordnet wordsenses but it seems difficult
+to determine authoritative URLs for these.}
 \end{itemize}
 
 
 \label{sec:vocab}
 
-While the comprehensive ambition of the CLLD project might warrant the creation of a CLLD ontology, we have refrained from creating one. This is in large part due to the lack of use cases (evidenced by lack of usage) for the RDF data.
+While the comprehensive ambition of the CLLD project might warrant the creation of a CLLD
+ontology, we have refrained from creating one. This is in large part due to the lack of use
+cases (evidenced by lack of usage) for the RDF data.
 
-In an environment where the preferred data exchange format is still csv, I did not want to venture on an undertaking that might leave us with a bunch of vocabulary URLs to maintain which no one uses.
-Thus, my RDF model reuses fairly generic terms from the most common vocabularies: \texttt{dcterms}, \texttt{skos}, \texttt{foaf}, \texttt{wgs84}.
-Due to the extensible architecture provided by the \texttt{clld} framework described in section~\ref{sec:implementation} 
-each CLLD application is in complete control of the RDF graphs of its entities, though.\footnote{E.g.~in WALS chapters carry information on the corresponding linguistic field which often can be linked to dbpedia; WALS languages can be linked via \texttt{dcterms:spatial} relations to geonames.org countries.}
+In an environment where the preferred data exchange format is still csv, I did not want to
+venture on an undertaking that might leave us with a bunch of vocabulary URLs to maintain
+which no one uses.
+Thus, CLLD's current RDF model reuses fairly generic terms from the most common
+vocabularies: \texttt{dcterms}, \texttt{skos}, \texttt{foaf}, \texttt{wgs84}.
+Due to the extensible architecture provided by the \texttt{clld} framework described in
+section~\ref{sec:implementation} each CLLD application is in complete control of the RDF
+graphs of its entities, though.\footnote{E.g.~in WALS chapters carry information on the
+corresponding linguistic field which often can be linked to dbpedia; WALS languages can be
+linked via \texttt{dcterms:spatial} relations to geonames.org countries.}
 
 
 %\subsection{Linked Data without ontology?}
@@ -370,7 +438,12 @@ The presence of tailored clothing covering the arms greatly increases the distin
 \end{quote}
 can still not be done fully automatically, but it should be possible to connect languages to descriptions about their speakers via 
 dbpedia and start from there.\footnote{If a large, curated database like \href{http://www.yale.edu/hraf/}{eHRAF} were part of Linked Open Data this could be possible, though.}
-\item Seeding/expanding datasets like "Tea"~\cite{wals-138} with data from lexical databases like WOLD\footnote{\url{http://wold.livingsources.org/meaning/23-9}} is already possible.
+\item Seeding/expanding datasets like "Tea"~\cite{wals-138} -- a dataset that lists for many
+languages whether the corresponding word for ``tea'' is derived from
+% TODO - cha, ...
+ -- with data from lexical databases like WOLD\footnote{\url{http://wold.livingsources.org/meaning/23-9}}
+is already possible.
+% thus the cycle of primary data -> derived data can start
 \end{itemize}
 
 Arguably, in particular for the case of typological datasets, completely automated use is still far off.\footnote{Judging by our experience with making
