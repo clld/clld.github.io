@@ -51,12 +51,17 @@ setting out to pick this fruit by establishing data publishing infrastructure.
 We try to do so by:
 \begin{itemize}
 \item closing the gap between data creation and data publication by making publication easy and attractive,
-\item overcoming the disconnect between data creators and data consumers\footnote{It is an interesting observation that at ALT 10 the typical presenters of papers working with quantitative methods on linguistic datasets were disjoint from the people creating such databases.},
+% elaborate on recognition thing!? here or below for the journals
+\item overcoming the disconnect between data creators and data consumers\footnote{It is an
+interesting observation that at ALT 10 the typical presenters of papers working with
+quantitative methods on linguistic datasets were disjoint from the people creating such databases.},
+% the common API thing plus the data aggregation aspect!!
 \item providing the infrastructure in a sustainable way.
 \end{itemize}
+% TODO: link to presentation about this Maury guy!
 
 \subsection{The datasets}
-Most datasets\footnote{\url{http://clld.org/datasets.html}} under consideration right now
+Most datasets under consideration right now
 have been compiled by or in association with the department of linguistics at the MPI EVA:
 \begin{description}
 \item[WALS] The \href{http://wals.info}{World Atlas of Language Structures} is now online in its third implementation.
@@ -65,19 +70,30 @@ have been compiled by or in association with the department of linguistics at th
 \item[IDS] (to be published in 2014) The Intercontinental Dictionary Series is a collection of extensive wordlists (ca.~1300 items)
 collected for a curated set of meanings covering more than 220 languages.
 \item[AfBo] \href{http://afbo.info/}{A world-wide survey of affix borrowing} describes 101 cases of affix borrowing from one language into another.
-\item[WOLD] \href{http://wold.livingsources.org}{The World Loanword Database} contains extensive vocabularies (similar to IDS) for 41 languages annotated for loanword status and source words.
+\item[WOLD] \href{http://wold.livingsources.org}{The World Loanword Database} contains extensive vocabularies (similar to IDS) for 41 languages annotated for loanword status and source words~\cite{tadmor2009}.
 \item[Glottolog] \href{http://glottolog.org}{Glottolog} is a language catalog and bibliographical database, comprising close to 8000 languages and more than 200000 bibliographical records~\cite{nordhoff2012}.
 \end{description}
 
 But CLLD also provides infrastructure to publish datasets originating outside the MPI EVA:
 \begin{itemize}
-\item Two data journals (one for dictionaries and one for typological databases) will be started in 2014 which are open to submissions.
-\item Bigger datasets can become part of CLLD following an ``edited series'' publication model. There are already two datasets in this category:
+\item Two data journals (one for dictionaries and one for typological databases) will be started
+in 2014 which are open to submissions. These journals will serve the double purpose of
+\begin{itemize}
+\item allowing publication of datasets referenced in ``traditional'' publications (as it is
+increasingly required by funders),
+\item applying the traditional model of peer-reviewed publications to data, thereby incentivizing
+researchers through recognition.
+\end{itemize}
+\item Bigger datasets can become part of CLLD following an ``edited series'' publication model.
+There are already two datasets in this category:
 \begin{description}
 \item[eWAVE] The electronic \href{http://ewave-atlas.org/}{World Atlas of Varieties of English} is a typological database containing information on 76 varieties of English (and highlighting the fact that ISO 639-3 is not sufficient to identify language varieties).
 \item[PHOIBLE] (to be published 2014) The \href{http://phoible.org}{PHOnetics Information Base and LExicon} is a large collection of phoneme inventories for languages from all over the world.
 \end{description}
-\item Last but not least the \texttt{clld} framework,\footnote{\url{https://github.com/clld/clld}} upon which all publications are built, is open source software and can be freely reused.
+\item Last but not least the \texttt{clld} framework,\footnote{\url{https://github.com/clld/clld}}
+upon which all publications are built, is open source software and can be freely reused; i.e.
+institutions or individuals can build applications based on the \texttt{clld} framework to
+host and publish their own databases.
 \end{itemize}
 
 \subsection{The \texttt{clld} framework}
@@ -164,12 +180,15 @@ In a concrete incarnation this core data model can be interpreted as shown in Fi
 Note the additional relation between \emph{Word} and \emph{Counterpart} which is not present in the core model.
 The \texttt{clld} framework uses the \emph{joined table inheritance} feature of the \texttt{SQLAlchemy} package
 to transparently add attributes to entities of the core data model. 
-(see section~\ref{sec:implementation}).
+(see section~\ref{sec:implementation}).\footnote{It should be noted that this data model provides
+sufficient structure to allow conversion to the RDF model for wordlists proposed by
+\newcite{good2010}.}
 
 
 \begin{figure}[h!]
   \caption{Entity-relationship diagram of the WOLD data model; \textit{SynSet}s are sets of synonyms,
-  a \textit{Counterpart} is an instance of the many-to-many relation between Words and Meanings.}
+  a \textit{Counterpart} is an instance of the many-to-many relation between Words and Meanings
+  in the sense of \newcite{tadmor2009}.\vspace{0.3cm}}
   \centering
 \includegraphics[width=8cm]{wold_erd.png}
 \label{wolddatamodel}
@@ -241,7 +260,7 @@ This can be done by enumerating the resource types, instances and available repr
 %-> hightlight the API/data access aspect of Linked Data (as opposed to the data model aspect of RDF)
 
 So while Linked Data is still not the way many researchers interested in our datasets\footnote{Most of
-the datasets under consideration here are most interesting to typologists rather than computational
+the datasets under consideration here are more interesting for typologists than for computational
 linguists.}
 actually do or want to access data (at least if they can get away with csv instead), there is
 something to be gained for the
@@ -255,14 +274,16 @@ As described above, Linked Data plays an important role in the strategy of the C
 In the following sections I describe our design choices regarding the implementation of Linked
 Data principles for the publication of CLLD datasets.
 
+% TODO: interoperability - merging of distributed resources is a use case Linked Data was invented for!
+
 \subsubsection{URLs and resources}
 We do not distinguish \emph{things} from \emph{Web documents} as recommended by \newcite{cooluris},
 because the solutions to achieve this conflict with our requirements for easy hosting of the lowest level
 of service outlined in section~\ref{sec:sustainability}
 These conflicts are also echoed in the list of practical limitations given in Tennison 2011~\cite{tennison2011}.
 Arguably, using a concept of languages as sets of doculects (following \newcite{dlc623}), the \emph{thing} can
-to some extent be identified with the web document describing it anyway
-(which is the opposite solution to the one proposed in \newcite{ambiguity}.
+to some extent be identified with the web document describing it anyway.
+%(which is the opposite solution to the one proposed in \newcite{ambiguity}.
 %http://www.ibiblio.org/hhalpin/homepage/publications/indefenseofambiguity.html "In defense of ambiguity").
 %    see also http://www.jenitennison.com/blog/node/159 What Do URIs Mean Anyway? (Jeni Tennison)
 
@@ -367,19 +388,20 @@ the URL space of its resource graph.
 \subsubsection{Linking with other resources and vocabularies}
 
 Linking to resources outside the CLLD universe is clearly in need of further investigation.
-Linking to dbpedia based on ISO 639-3 codes of languages is possible.
+Linking to dbpedia and lexvo based on ISO 639-3 codes of languages is possible.
 Linking sources to bibliographical records e.g.~in WorldCat is hampered by the fact that
 identification of matching records is error prone and not doable ``by hand'' for our typical
 source collections with more than 1000 records.
 
 It should be noted, though, that some of our datasets carry the potential to serve as hubs
-in the Linked Data cloud themselves:
+in the Linked Data cloud themselves, and do so within the CLLD sub-cloud:
 \begin{itemize}
 \item Glottolog as language catalog and comprehensive bibliography. The desirability of
 alternative language catalogs (in addition to Ethnologue or ISO 639-3) is described in
 \newcite{dlc610} and can easily be seen looking at a dataset like eWAVE or APiCS, where
 many of the languages under investigation are not included in either Ethnologue or ISO-639-3.
-\item IDS as provider of semi-standard meanings for the creation of wordlists.\footnote{It
+\item IDS and WOLD as providers of semi-standard comparison meanings for the
+creation of wordlists, i.e. as concepticons in the sense of \newcite{good2010}.\footnote{It
 would probably make sense to link these meanings to wordnet wordsenses but it seems difficult
 to determine authoritative URLs for these.}
 \end{itemize}
@@ -427,41 +449,57 @@ linked via \texttt{dcterms:spatial} relations to geonames.org countries.}
 
 
 \section{Where does this get us?}
-In conclusion I will try to gauge the impact of the CLLD project looking at some use cases:
+
+With WALS, APiCS, WOLD, Glottolog and some more datasets\footnote{\url{http://clld.org/datasets.html}}
+published as CLLD applications -- i.e. with their data available as Linked Data described
+via VoID -- I will try to gauge the impact of the CLLD project looking at some use cases:
 \begin{itemize}
 \item At the most basic level,
 fulfilling the request ``give me all you have on language x'' (where x is chosen from one of the supported language catalogs) 
-should be possible.\footnote{Cf. \url{http://portal.clld.org/?q=english}}
+should be possible -- using a local triplestore filled by harvesting the CLLD apps individually
+or later this year using the CLLD portal.\footnote{Cf. \url{http://portal.clld.org/?q=english}}
 \item Testing the conjecture mentioned in WALS chapter "Hand and Arm" \cite{wals-129}
 \begin{quote}
-The presence of tailored clothing covering the arms greatly increases the distinctiveness of arm parts and renders more likely their labeling by separate terms [...]. Another potentially fruitful investigatory strategy would be to cross-tabulate values against the tailoring technologies of peoples who speak each of the 620 languages of the sample - an enormous research effort this author must leave to future investigators.
+The presence of tailored clothing covering the arms greatly increases the distinctiveness of
+arm parts and renders more likely their labeling by separate terms [...]. Another potentially
+fruitful investigatory strategy would be to cross-tabulate values against the tailoring
+technologies of peoples who speak each of the 620 languages of the sample - an enormous
+research effort this author must leave to future investigators.
 \end{quote}
-can still not be done fully automatically, but it should be possible to connect languages to descriptions about their speakers via 
-dbpedia and start from there.\footnote{If a large, curated database like \href{http://www.yale.edu/hraf/}{eHRAF} were part of Linked Open Data this could be possible, though.}
-\item Seeding/expanding datasets like "Tea"~\cite{wals-138} -- a dataset that lists for many
-languages whether the corresponding word for ``tea'' is derived from
-% TODO - cha, ...
- -- with data from lexical databases like WOLD\footnote{\url{http://wold.livingsources.org/meaning/23-9}}
+can still not be done fully automatically, but it should be possible to connect languages
+to descriptions about their speakers via dbpedia and start from there.\footnote{If a large,
+curated database like \href{http://www.yale.edu/hraf/}{eHRAF} were part of Linked Open Data
+this could be possible, though. It should also be noted that cultures, thus anthropological
+data, are often identified/distinguished by their language, so that this kind of data
+would also fit into the CLLD framework.}
+\item Seeding/expanding datasets like ``Tea''~\cite{wals-138}\footnote{This dataset lists for many
+languages whether the corresponding word for ``tea'' is derived from Sinitic ``cha'' or
+Min Nan Chinese ``te''.}
+with data from lexical databases like WOLD\footnote{\url{http://wold.livingsources.org/meaning/23-9}
+ lists counterparts for ``tea'' in various languages including their loanword status.}
 is already possible.
 % thus the cycle of primary data -> derived data can start
 \end{itemize}
 
-Arguably, in particular for the case of typological datasets, completely automated use is still far off.\footnote{Judging by our experience with making
+Arguably, in particular for the case of typological datasets, completely automated use is
+still far off.\footnote{Judging by our experience with making
 APiCS and WALS structure sets comparable (where APiCS was created with comparability to WALS as an explicit goal),
 and evidence provided by \newcite{round2013} at ALT 10 for the difficulty of designing comparable datasets,
 it seems clear that ``know your data'' will remain an obligation of the researcher that cannot be shifted to the machine.}
 The typical process for analysis of typological datasets will remain a sequence of 
-data download, manual inspection, massaging the data, then running analysis software; for this workflow, the uniform access aspect of Linked Data 
-is the most important.
+data download, manual inspection, massaging the data, then running analysis software; for this
+workflow, the uniform access aspect of Linked Data is the most important.
 
 Thus, the future plans for the project focus on
 \begin{itemize}
-\item aggregators and portals:
+\item aggregators or portals:
   \begin{description}
   \item[Lexicalia] the portal to lexical data in CLLD datasets\footnote{\url{http://portal.clld.org/lexicalia}} and
   \item[CrossGram] the portal to typological data in CLLD datasets\footnote{\url{http://portal.clld.org/crossgram}}
   \end{description}
-  are already under way. In general we would like to follow the example of \href{http://bio2rdf.org}{bio2rdf} in providing a standard, versioned, curated aggregation of linguistic data around which a community can grow and share analyses, methods and data.
+  are already under way. In general we would like to follow the example of \href{http://bio2rdf.org}{bio2rdf}
+  in providing a standard, versioned, curated aggregation of linguistic data around which a
+  community can grow and share analyses, methods and data.
 \item ``curated triplestores'' and ``on-demand triplestores'' in the sense of \newcite{tennison2010}.\footnote{Imagine a service that would allow one to:
 1. collect a custom dataset from selected features from WALS, APiCS and eWAVE;
 2. post-process it with software from CLLD's community repository;
