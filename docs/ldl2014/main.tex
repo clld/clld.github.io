@@ -52,9 +52,9 @@ We try to do so by:
 \begin{itemize}
 \item closing the gap between data creation and data publication by making publication easy and attractive,
 % elaborate on recognition thing!? here or below for the journals
-\item overcoming the disconnect between data creators and data consumers\footnote{It is an
+\item overcoming the disconnect between data creators and data consumers,\footnote{It is an
 interesting observation that at ALT 10 the typical presenters of papers working with
-quantitative methods on linguistic datasets were disjoint from the people creating such databases.},
+quantitative methods on linguistic datasets were disjoint from the people creating such databases.}
 % the common API thing plus the data aggregation aspect!!
 \item providing the infrastructure in a sustainable way.
 \end{itemize}
@@ -87,13 +87,15 @@ researchers through recognition.
 \item Bigger datasets can become part of CLLD following an ``edited series'' publication model.
 There are already two datasets in this category:
 \begin{description}
-\item[eWAVE] The electronic \href{http://ewave-atlas.org/}{World Atlas of Varieties of English} is a typological database containing information on 76 varieties of English (and highlighting the fact that ISO 639-3 is not sufficient to identify language varieties).
-\item[PHOIBLE] (to be published in 2014) The \href{http://phoible.org}{The Phonetics Information Base} is a large collection of phoneme inventories for languages from all over the world.
+\item[eWAVE] The electronic \href{http://ewave-atlas.org/}{World Atlas of Varieties of English} is
+a typological database containing information on 76 varieties of English.\footnote{Datasets like
+eWAVE highlight the fact that ISO 639-3 is not sufficient to identify language varieties.}
+\item[PHOIBLE] (to be published in 2014) \href{http://phoible.org}{The Phonetics Information Base}
+is a large collection of phoneme inventories for languages from all over the world.
 \end{description}
 \item Last but not least the \texttt{clld} framework,\footnote{\url{https://github.com/clld/clld}}
-upon which all publications are built, is open source software and can be freely reused; i.e.
-institutions or individuals can build applications based on the \texttt{clld} framework to
-host and publish their own databases.
+upon which all publications are built, is open source software and can be freely reused; i.e.~institutions
+or individuals can build applications based on the \texttt{clld} framework to host and publish their own databases.
 \end{itemize}
 
 \subsection{The \texttt{clld} framework}
@@ -112,7 +114,7 @@ In the first year of the project\footnote{\url{http://clld.org/2014/01/03/new-ye
 developed, which will be the focus of the following sections.
 Publishing datasets as \texttt{clld} applications should be seen as a perfect basis for publishing it as Linked Data while at the same time publishing it in a more traditional way (with respect to Web-publishing). It is also a good way to extend the uniformity of the interface from the machine readable data to the user interface accessed with the browser.
 While I understand the strength of the Linked Data approach to publishing, being able to also put an attractive human user interface on top of a dataset must not be underestimated when it comes to convincing linguists to open up their data.
-Thus the \texttt{clld} framework provides a
+Thus the \texttt{clld} framework provides
 \begin{itemize}
 \item a common core data model,
 \item a basic API built on Linked Data principles
@@ -158,11 +160,11 @@ datatypes for values can be implemented as application-specific extensions of th
 \item[Unit] parts of a language system that are annotated, such as sounds, words or constructions.
 \item[UnitParameter] a feature that can be determined for a unit.
 \item[UnitValue] measurement for one unit and one unitparameter.
-\item[Source] pointer to secondary literature - e.g. bibliographical records.
+\item[Source] pointer to secondary literature -- e.g.~bibliographical records.
 \item[Sentence] a small piece of text, preferably in the form of interlinear glossed
 text\footnote{\url{http://en.wikipedia.org/wiki/Interlinear\_gloss}} according to the
 Leipzig Glossing Rules.\footnote{\url{http://www.eva.mpg.de/lingua/resources/glossing-rules.php}}
-\item[Contribution] a collection of ValueSets that shares provenance information, e.g. authorship.\footnote{Thus,
+\item[Contribution] a collection of ValueSets that share provenance information, e.g. authorship.\footnote{Thus,
 a CLLD dataset is similar to an edited volume in that it may aggregate data from multiple contributors.}
 \end{description}
 
@@ -208,7 +210,7 @@ These technology choices offer the following two essential mechanisms for extens
 \begin{enumerate}
 \item The joined table inheritance\footnote{\url{http://docs.sqlalchemy.org/en/latest/orm/inheritance.html}}
 model provided with \texttt{SQLAlchemy} allows for transparent extension of core database entities.
-For each core entity a CLLD application may define an extended entitity, adding attributes and relations.
+For each core entity a \texttt{clld} application may define an extended entitity, adding attributes and relations.
 Accessing the database using \texttt{SQLAlchemy} makes sure
 that whenever the core entitity is queried an instance of the extended entity is returned.
 \item The Zope component architecture\footnote{\url{http://www.muthukadan.net/docs/zca.html}}
@@ -280,9 +282,11 @@ Data principles for the publication of CLLD datasets.
 We do not distinguish \emph{things} from \emph{Web documents} as recommended by \newcite{cooluris},
 because the solutions to achieve this conflict with our requirements for easy hosting of the lowest level
 of service outlined in section~\ref{sec:sustainability}
-These conflicts are also echoed in the list of practical limitations given in Tennison 2011~\cite{tennison2011}.
+These conflicts are also echoed in the list of practical limitations given~\newcite{tennison2011}.
 Arguably, using a concept of languages as sets of doculects (following \newcite{dlc623}), the \emph{thing} can
-to some extent be identified with the web document describing it anyway.
+to some extent be identified with the web document describing it anyway;
+additionally we rely on the discoverability of context in the sense of \newcite{ambiguity},
+e.g.~provided by RDF types or identifiers, to support disambiguation.
 %(which is the opposite solution to the one proposed in \newcite{ambiguity}.
 %http://www.ibiblio.org/hhalpin/homepage/publications/indefenseofambiguity.html "In defense of ambiguity").
 %    see also http://www.jenitennison.com/blog/node/159 What Do URIs Mean Anyway? (Jeni Tennison)
@@ -317,8 +321,8 @@ the data via crawling (while still possible) time consuming.
 
 The VoID description and the backlinks of each resource to the dataset are used to provide
 provenance and license information for each resource. Following the recommendations for
-deploying VoID descriptions in~\cite{void}, the description is available at the path
-\texttt{/void.ttl} of CLLD applications as well as via content negotiation at the base URL.
+deploying VoID descriptions in~\newcite{void}, the description is available at the path
+\texttt{/void.ttl} of \texttt{clld} applications as well as via content negotiation at the base URL.
 
 
 \subsubsection{HTTP}
@@ -350,7 +354,6 @@ to make sure that RDF resources can be accessed right now just as they would in 
 %}
 %\end{figure}
 HTTP link headers are used to identify canonical URLs and alternative representations. %(see figure~\ref{fig:linkheader}).
-
 %\begin{figure}
 %\label{fig:linkheader}
 %\caption{HTTP \texttt{Link} header returned for a resource request.}
@@ -379,7 +382,6 @@ HTTP link headers are used to identify canonical URLs and alternative representa
 %\end{verbatim}
 %}
 %\end{figure}
-
 While this feature might not survive in the lowest level of service (unless some custom
 webserver configuration is added), it shows the capability of the framework to enumerate
 the URL space of its resource graph.
@@ -401,7 +403,7 @@ alternative language catalogs (in addition to Ethnologue or ISO 639-3) is descri
 \newcite{dlc610} and can easily be seen looking at a dataset like eWAVE or APiCS, where
 many of the languages under investigation are not included in either Ethnologue or ISO-639-3.
 \item IDS and WOLD as providers of semi-standard comparison meanings for the
-creation of wordlists, i.e. as concepticons in the sense of \newcite{good2010}.\footnote{It
+creation of wordlists, i.e. as ``concepticons'' in the sense of \newcite{good2010}.\footnote{It
 would probably make sense to link these meanings to wordnet wordsenses but it seems difficult
 to determine authoritative URLs for these.}
 \end{itemize}
@@ -451,13 +453,14 @@ linked via \texttt{dcterms:spatial} relations to geonames.org countries.}
 \section{Where does this get us?}
 
 With WALS, APiCS, WOLD, Glottolog and some more datasets\footnote{\url{http://clld.org/datasets.html}}
-published as CLLD applications -- i.e. with their data available as Linked Data described
+already published as CLLD applications -- i.e.~with their data available as Linked Data described
 via VoID -- I will try to gauge the impact of the CLLD project looking at some use cases:
 \begin{itemize}
 \item At the most basic level,
-fulfilling the request ``give me all you have on language x'' (where x is chosen from one of the supported language catalogs) 
+fulfilling the request ``give me all you have on language x'' (where x is chosen from one of
+the supported language catalogs)
 should be possible -- using a local triplestore filled by harvesting the CLLD apps individually
-or later this year using the CLLD portal.\footnote{Cf. \url{http://portal.clld.org/?q=english}}
+or at a later stage using the CLLD portal.\footnote{Cf. \url{http://portal.clld.org/?q=english}}
 \item Testing the conjecture mentioned in WALS chapter "Hand and Arm" \cite{wals-129}
 \begin{quote}
 The presence of tailored clothing covering the arms greatly increases the distinctiveness of
@@ -509,6 +512,21 @@ Thus, the future plans for the project focus on
   without putting the burden of versioning on each database:
   one will not be able to simply publish a sparql query and the URL of the endpoint, but would have to deposit the triples as well.
 \end{itemize}
+
+%
+% TODO: this is where there may be overlap with CLARIN, because there may be services in the
+% sense of CLARIN involved. Otherwise our aim is - due to all our data being freely available -
+% more integration with the web at large.
+% - register datasets - fine grained
+% - built service that allows sparql-queries on pre-loaded triplestores
+% since this may become computationally rather intensive, offering it as limited/restricted
+% web service may make sense.
+%
+For these objectives of the project integration with the CLARIN\footnote{\url{http://clarin.eu}}
+infrastructure could be useful.
+While the basic data collection and publishing aims more at integration with the web at large,
+providing computationally intensive expert services like custom triplestores would profit from
+an environment that allows restricted and limited access by a well defined user community.
 
 \bibliographystyle{lrec2006}
 \bibliography{refs}
