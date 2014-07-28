@@ -1,0 +1,139 @@
+---
+layout: post
+title: csv support in clld applications
+author: Robert Forkel
+menu_item: blog
+---
+
+<p>
+    With the <span style="font-family: monospace">clld</span> framework it has always been easy to
+    <a href="http://clld.readthedocs.org/en/latest/resources.html#adapters">provide custom representations</a>
+    of the resources in a database. As of version 0.15 this mechanism is used in the core
+    framework to provide csv and csv metadata representations for any datatable in a
+    <span style="font-family: monospace">clld</span> app.
+</p>
+
+
+<p>
+    With as much as a
+    <a href="http://csvconf.com/">conference</a> and a
+    <a href="http://www.w3.org/2013/05/lcsv-charter.html">w3c working group</a> dedicated to
+    it, <a href="http://en.wikipedia.org/wiki/Comma-separated_values">csv</a> (a.k.a. comma-separated values)
+    seems to have survived the attacks by XML, RDF, JSON, etc. quite well.
+    Of course most users of CLLD databases have known this all the time.
+    And obviously tool support has always been
+    <a href="https://www.itg.ias.edu/content/how-import-csv-file-uses-utf-8-character-encoding-0">close to perfect</a>
+    for csv.
+</p>
+<p>
+    So following best practices outlined in
+    <a href="http://www.w3.org/TR/2014/WD-tabular-data-model-20140327/">w3c's Model for Tabular Data and Metadata on the Web</a>
+    and <a href="http://csvlint.io/about">CSV Lint's about page</a>, there is now generic csv support
+    built into the <span style="font-family: monospace">clld</span> framework.
+</p>
+<p>
+    To understand what this looks like in practice, we can look at an example, the
+    <a href="http://glottolog.org/glottolog/language">datatable listing languages in Glottolog</a>.
+    We can see that <i>csv</i> and <i>csv.csvm</i> are listed among the download formats when
+    the table's download selector <span class="icon-download-alt"> </span> is clicked.
+    But the same information is also available for automated processing as
+    <a href="http://tools.ietf.org/html/rfc5988">HTTP Link header</a>:
+</p>
+<pre>
+$ curl -I http://glottolog.org/glottolog/language
+HTTP/1.1 200 OK
+Date: Mon, 28 Jul 2014 12:03:05 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 13598
+Connection: keep-alive
+Vary: Accept
+Link: <http://glottolog.org/glottolog/language.csv.csvm>; rel="describedby"; type="application/json"
+Link: <http://glottolog.org/glottolog/language.csv>; rel="alternate"; type="text/csv"
+...
+</pre>
+<p>
+    So let's look at the <a href="http://glottolog.org/glottolog/language.csv.csvm">description</a>:
+</p>
+<pre>
+$ curl http://glottolog.org/glottolog/language.csv.csvm
+{
+    "fields": [
+        {
+            "constraints": {
+                "type": "http://www.w3.org/2001/XMLSchema#int",
+                "unique": false
+            },
+            "name": "child_dialect_count"
+        },
+...
+        {
+            "constraints": {
+                "type": "http://www.w3.org/2001/XMLSchema#string",
+                "unique": false
+            },
+            "name": "classificationcomment"
+        },
+...
+</pre>
+<p>
+    The data structure you see above is the description of the fields in the
+    <a href="http://glottolog.org/glottolog/language.csv">corresponding csv file</a>
+    represented in
+    <a href="http://dataprotocols.org/json-table-schema/">JSON Table Schema</a> format,
+    as understood by <a href="http://csvlint.io">CSV Lint</a>. So feeding the two URLs
+    for data and schema to CSV Lint we can get a validation result:
+    <a href='http://csvlint.io/validation/53bfd9cf63737603e3920200'>
+        <img src="http://csvlint.io/validation/53bfd9cf63737603e3920200.svg" alt="CSV Validation" />
+    </a>
+</p>
+<p>
+        Using the tools of the excellent
+        <a href="http://csvkit.readthedocs.org/en/0.7.3/">csvkit</a>
+        you can investigate the field names for a csv file
+</p>
+<pre>
+$ curl "http://glottolog.org/glottolog/language.csv" | csvcut -n
+  1: child_dialect_count
+  2: child_family_count
+  3: child_language_count
+  4: classificationcomment
+  5: description
+  6: family_pk
+  7: father_pk
+  8: globalclassificationcomment
+  9: hid
+ 10: id
+ 11: jsondata
+ 12: latitude
+ 13: level
+ 14: longitude
+ 15: markup_description
+ 16: name
+ 17: pk
+ 18: status
+</pre>
+<p>
+    Since the exported csv does always list the rows as filtered and sorted in the
+    datatable, you can use URL parameters to customize the contents of the csv export.
+    So listing the glottocodes and names of Indo-European languages forther north than
+    55° ordered by decreasing latitude can be done as
+    <pre>
+$ curl "http://glottolog.org/glottolog/language.csv?type=languages&sEcho=1&iSortingCols=1&iSortCol_0=6&sSortDir_0=desc&sSearch_2=Indo&sSearch_6=%3E+55" | csvcut -c 10,16
+icel1247,Icelandic
+jamt1238,Jamtska
+faro1244,Faroese
+kalo1256,Kalo Finnish Romani
+balt1257,Baltic Romani
+swed1254,Swedish
+latv1249,Latvian
+scot1245,Scottish Gaelic
+scan1238,Scanian
+hibe1235,Hiberno-Scottish Gaelic
+scot1243,Scots
+lith1251,Lithuanian
+</pre>
+</p>
+<p>
+        Note that this functionality will become available in existing CLLD apps only over time
+        once they are upgraded to recent versions of the clld framework.
+</p>
