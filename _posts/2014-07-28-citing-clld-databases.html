@@ -1,0 +1,135 @@
+---
+layout: post
+title: Citing CLLD Databases and Reproducible Research
+author: Robert Forkel
+menu_item: blog
+---
+
+<p>
+    ZENODO's integration with GitHub provides a service that brings citeability and
+    usability of CLLD databses for reproducible research to a new level.
+</p>
+
+
+<p>
+        While creating and sharing research data has been around for a long time, there still does not
+        seem to be much of a standard culture for how to cite it. Still this is all the more important,
+        because citation is the currency of research, and getting cited is the way for a researcher
+        to accumulate recognition.
+</p>
+<p>
+        The CLLD project approaches this problem very pragmatically, by emulating the world of
+        traditional publications; e.g. CLLD databases are
+</p>
+        <ul>
+        <li>regarded as publications,</li>
+        <li>stress similarity to known publication formats such as edited volumes or chapters in books,</li>
+        <li>recommend a particular citation format.</li>
+</ul>
+        <p>
+        But typically for electronic databases there's the "moving target" problem: Ideally databases
+        are updated, enlarged and maintained in general. So how can we make sure, a specific state of
+        the database can be cited? Again there are examples of how to deal with this problem
+        from the traditional publication model: Lists of errata or new editions. And again,
+        CLLD databases often use one or both of these approaches.
+</p>
+<p>
+        Unfortunately this only raises a new problem: How to keep older editions accessible?
+        From a technical point of view, this is largely a user interface problem. It is not too
+        much of a problem to teach relational databases
+        <a href="http://docs.sqlalchemy.org/en/latest/orm/examples.html#versioning-objects">to store older state</a>
+        or some sort of
+        history. But how to provide access to this data while funnelling all non-specific
+        requests to the newest version is not trivial, as can be seen in discussions about
+        the usability of <a href="http://en.wikipedia.org/wiki/Revision_control">revision control</a>
+        software.
+</p>
+<p>
+        Backups or data dumps are a very pragmatic solution to this problem. They represent
+        the reasonable trade-off of making the newest version easily accessible, while leaving
+        access to older versions to the technically skilled.
+</p>
+<p>
+        This is even more so for complex datasets like WALS, where there is no one data dump format,
+        satisfying all requirements like
+    </p>
+        <ul>
+        <li>portability (db-native SQL dumps typically aren't);</li>
+        <li>comprehensiveness (is there something like a <a href="http://en.wikipedia.org/wiki/Binary_large_object">BLOB</a> in RDF?);</li>
+        <li>self explanatory (is a
+        <a href="http://wals.info/chapter/27">WALS chapter description</a>
+        metadata or part of the data?);</li>
+        <li>easy to create and easy to consume.</li>
+</ul>
+        <p>
+        Arguably, for complex datasets which are typically accessed through a web application,
+        the application itself dictates how to interpret the data, thus forms part of the
+        metadata of the dataset.
+</p>
+<p>
+        Since the source code of the web application for most CLLD databases is kept in git
+        repositories on GitHub, it seems natural to store the data in the same repository.
+        To make this easier, the
+        <a href="https://github.com/clld/clld"><span style="font-family: monospace;">clld</span> toolkit</a>
+        provides
+        <a href="https://github.com/clld/clld/blob/master/clld/scripts/freeze.py">functionality to dump a database</a>
+        as set of related <a href="http://csvlint.io/">valid csv files</a>, described by metadata in
+        <a href="http://dataprotocols.org/json-table-schema/">JSON table schema</a> format.
+        Such a data dump can then be
+        created for each edition of the database and added to the repository.
+</p>
+<p>
+        This approach has now become a lot more attractive through the
+        <a href="https://guides.github.com/activities/citable-code/">integration of GitHub with ZENODO</a>.
+        <a href="https://zenodo.org/about">ZENODO</a> is a research data archive funded by EU,
+        and operated by a team at CERN. Integration with GitHub means that whenever a repository
+        on GitHub (which is registered with ZENODO) gets a
+        <a href="https://github.com/clld/wals3/releases/tag/v2014.2">new release</a>, a snapshot of this
+        repository is
+        <a href="https://zenodo.org/record/11040#">archived with ZENODO</a> with ZENODO.
+</p>
+<p>
+        Archiving with ZENODO also means integration with the over-arching eco-system of
+        scholarly publications:
+</p>
+        <ul>
+        <li>A <a href="http://en.wikipedia.org/wiki/Digital_object_identifier">DOI</a> is assigned to the archive, making citation easier and more uniform:
+        <a href="http://dx.doi.org/10.5281/zenodo.11040"><img src="https://zenodo.org/badge/doi/10.5281/zenodo.11040.png" alt="10.5281/zenodo.11040"></a>.
+            </li>
+        <li>Metadata of the archive can be harvested by scholarly search engines.</li>
+        <li>ZENODO is listed in meta-archives and data portals like
+        <a href="http://service.re3data.org/repository/r3d100010468">re3data</a>.</li>
+            </ul>
+<p>
+        To also tackle the ease-of-use problem of such archives from the data consumer's
+        perspective, the <span style="font-family: monospace;">clld</span> toolkit again exploits the
+        fact that such an archive contains both
+        the dataset and the source code of the application serving it: Creating a fully functional
+        local <a href="http://wals.info">WALS Online</a> clone (serving the data of a particular
+        WALS edition) can be
+        <a href="https://github.com/clld/wals3/blob/master/README.md#install">as easy as running a short shell script</a>.
+</p>
+<p>
+        Of course, there is still enough complexity and detail for devils to hide in this approach.
+        E.g. it may not be trivial to find a working
+        <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> environment in which to run
+        the above script 20 years from now. But with the steps we have taken now, long-term access to databases like ours
+        can take advantage of technologies like virtualization in the cloud or containerization of software
+        (like <a href="https://www.docker.com/">Docker</a>);
+        e.g. an archived <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html">EC2 AMI</a> or
+        <a href="https://registry.hub.docker.com/">docker repository</a> may solve the problem of creating a working
+        Python 2.7 environment.
+</p>
+<p>
+        Since <span style="font-family: monospace;">clld</span>  applications provide a uniform API to access the data, this also means reproducible
+        research based on CLLD databases may procede as follows (in the near future):
+</p>
+        <ol>
+            <li>Start up a particular version of a CLLD database on a virtual machine.</li>
+            <li>Run your data collection routines accessing the database through the API.</li>
+        </ol>
+<p>
+        And it does not take too much imagination, to see the first step in this recipe
+        (i.e. on-demand hosting of archived databases)
+        as part of the offerings of a research library.
+</p>
