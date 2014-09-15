@@ -1,0 +1,67 @@
+---
+layout: post
+title: CLLD and OLAC
+author: Robert Forkel
+menu_item: blog
+---
+<p>
+    Checking the success of the
+    <a href="http://www.language-archives.org/metrics/phoible.org">
+        <i class="icon-share"> </i>
+        newest CLLD archive registration
+    </a>
+    with
+    <a href="http://www.language-archives.org/index.html">
+        <i class="icon-share"> </i>
+        OLAC (the Open Language Archives Community)
+    </a>
+    I thought it was time for some bragging.
+</p>
+
+<p>
+    OLAC uses the
+    <a href="http://www.openarchives.org/pmh/">
+        <i class="icon-share"> </i>
+        OAI-PMH protocol
+    </a>
+    to harvest metadata for language resources from participating archives.
+    Since each application built with the
+    <a href="https://github.com/clld/clld">
+        <i class="icon-share"> </i>
+        clld framework
+    </a>
+    comes with an
+    <a href="https://github.com/clld/clld/blob/master/clld/web/views/olac.py">
+        <i class="icon-share"> </i>
+        implementation of the data provider side
+    </a>
+    of this protocol, registration of a new archive is simple. By default,
+    the details pages of each language identified with an ISO 639-3 code will be
+    disseminated as language resources.
+</p>
+<p>
+    Now on to the bragging: As can be seen on
+    <a href="http://www.language-archives.org/metrics/">
+        <i class="icon-share"> </i>
+        OLAC's archive metrics page
+    </a>:
+</p>
+<ul>
+    <li>
+        Three repositories in the top-ten of archives ordered by most distinct languages
+        (including the number one,
+        <a href="http://glottolog.org"><i class="icon-share"> </i>Glottolog</a>)
+        are <a href="/datasets.html">CLLD databases</a>.
+    </li>
+    <li>
+        When ranked by metadata quality, 7 out of 20 5-star archives are CLLD databases.
+    </li>
+</ul>
+<p>
+    It has to be noted, though, that OLAC only indexes resources for languages identified
+    by ISO 639-3 codes; thus it's difficult to register the resources provided by
+    <a href="http://apics-online.info"><i class="icon-share"> </i>APiCS Online</a> or
+    <a href="http://ewave-atlas.org"><i class="icon-share"> </i>eWAVE</a>. Hopefully
+    someday it will be possible to also register resources tagged with a Glottocode
+    (Glottolog's languoid identifier).
+</p>
