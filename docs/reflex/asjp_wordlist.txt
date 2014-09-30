@@ -1,0 +1,5 @@
+KHOEKHOEGOWAB{Kho.CENTRAL_KHOISAN|Khoisan,SouthernAfrica,Central,Nama|@Khoe-Kwadi,Khoe,Khoekhoe}
+ 1  -25.50   18.00      251100   kho   naq
+1 I	ta, tita, tir //
+2 you	c, sac, s, sas // 1+2. masc, 3+4. fem
+3 we	da, sida, sada //

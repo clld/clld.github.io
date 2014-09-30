@@ -1,0 +1,6 @@
+@implementer(interfaces.IValue)
+class Counterpart(Value, CustomModelMixin):
+    ...
+    word_pk = Column(Integer, ForeignKey('word.pk'))
+    word = relationship(Word, backref='counterparts')
+    ...
