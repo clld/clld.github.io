@@ -229,13 +229,13 @@ Design goals:
 \begin{itemize}
 \item There must be a core database model, which allows for as much shared
 functionality as possible.
-\item Deployment of applications must be uniform and easy.
+%\item Deployment of applications must be uniform and easy.
 \item User interfaces of applications must be fully customizable.
 \item It must be easy to re-implement legacy applications using the framework.
 \item Optimize for maintainability, i.e.~minimize lines-of-code for apps built
 with the framework.
+\item Find the right level of abstraction!
 \end{itemize}
-%must find the right level of abstraction
 \end{frame}
 
 
@@ -311,8 +311,10 @@ can be modeled using custom attributes).
 
 \begin{frame}{\texttt{clld} data model: Relationships}
 \begin{figure}
-\includegraphics[width=\textwidth]{clld_erd.png}
-\caption{\label{fig:clld}The default \texttt{clld} data model.}
+\includegraphics[width=0.9\textwidth]{clld_erd.png}
+\caption{\label{fig:clld}The default \texttt{clld} data model.
+Note: Modelling constructions as Units and features as UnitParameters the case
+mentioned by Harald fits in.}
 \end{figure}
 \end{frame}
 
@@ -438,6 +440,8 @@ interfaces, e.g. to resources.
 adapted to HTML.
 \item These registry entries can be overridden by \texttt{clld} apps,
 e.g.~providing custom DataTables, custom map markers, custom maps.
+\item Again it's about the right level of abstraction: Writing a \texttt{clld} app
+as declarative as possible, just implement adapters.
 \end{itemize}
 \end{frame}
 
@@ -689,7 +693,8 @@ better citeability via DOI.}
 \begin{itemize}
 \item for OLAC there's OAI-PMH
 \item for mapping (i.e. leaflet, tilemill) there's GeoJSON
-\item but then there's http://phonotactics.anu.edu.au/
+\item but then there's RefLex
+\item and http://phonotactics.anu.edu.au/
 \item and the WALS Sunburst explorer
 \item \dots
 \end{itemize}
@@ -792,9 +797,6 @@ tools (e.g.~phylogenetic software),
 
 \item so doing analyses directly on the RDF model can not be expected.
 
-\item Computing language phylogenies: Construction of the dataset on which to
-base analyses is part of the intellectual research effort.
-
 \item Example APiCS: Interoperability of typological resources is hampered by the
 difficulty of cross-linguistic categories.
 
@@ -835,7 +837,7 @@ Roadmap:
 
 
 
-\begin{frame}{Hit the road \dots}
+\begin{frame}{}
 \begin{center}
 http://clld.org
 \end{center}
