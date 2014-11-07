@@ -1,4 +1,4 @@
-clld.github.io
-==============
+The Cross-Linguistic Linked Data Project
+========================================
 
-clld pages
+CLLD
