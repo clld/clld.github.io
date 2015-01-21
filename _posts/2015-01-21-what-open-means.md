@@ -22,12 +22,12 @@ We first download the [shapefile](http://en.wikipedia.org/wiki/Shapefile) contai
 GIS data for the [WWF Terrestrial Ecoregions of the World](http://web.mit.edu/11.951/ecoplan/data/ecoregions/)
 ([README](http://web.mit.edu/11.951/ecoplan/data/ecoregions/wwf_terr_ecos.htm)):
 
-```bash
+{% highlight bash %}
 curl -O http://web.mit.edu/11.951/ecoplan/data/ecoregions/wwf_terr_ecos.shp
 curl -O http://web.mit.edu/11.951/ecoplan/data/ecoregions/wwf_terr_ecos.dbf
 curl -O http://web.mit.edu/11.951/ecoplan/data/ecoregions/wwf_terr_ecos.shx
 curl -O http://web.mit.edu/11.951/ecoplan/data/ecoregions/wwf_terr_ecos.prj
-```
+{% endhighlight %}
 
 Information about observations of species is available from [GBIF.org](http://www.gbif.org) via
 their [great API](http://www.gbif.org/developer/summary). In particular we are going
@@ -37,7 +37,7 @@ identifier for a scientific species name and the
 [occurrence/search](http://www.gbif.org/developer/occurrence#search) method to retrieve
 a list of occurrences for this species.
 
-```python
+{% highlight python %}
 import requests
 
 def gbif_api(path, **params):
@@ -53,10 +53,10 @@ def occurrences(species):
         hasCoordinate='true',
         limit=100)
     return gbif_api('occurrence/search', **kw)['results']
-```
+{% endhighlight %}
 
 A single occurrence record serialized as JSON looks as follows:
-```javascript
+{% highlight javascript %}
         {
             "basisOfRecord": "HUMAN_OBSERVATION", 
             "catalogNumber": "551402", 
@@ -69,13 +69,13 @@ A single occurrence record serialized as JSON looks as follows:
             "decimalLongitude": -82.09795, 
             ...
         }
-```
+{% endhighlight %}
 
 The ecoregion data in the shapefile when read with fiona is presented as
 [records](http://toblerity.org/fiona/manual.html#records), with `properties` looking as
 follows:
 
-```python
+{% highlight python %}
            "properties": {
                 "AREA": 29.8029417004, 
                 "BIOME": 14.0, 
@@ -96,11 +96,11 @@ follows:
                 "area_km2": 8174, 
                 "eco_code": "NT1404"
             }
-```
+{% endhighlight %}
 
 Now finding ecoregions in which a species has been observed can be done as follows:
 
-```python
+{% highlight python %}
 import fiona
 from shapely.geometry import shape, Point
 
@@ -123,19 +123,19 @@ def get_ecoregions(species):
             except:
                 pass
     return eco_codes
-```
+{% endhighlight %}
 
 Putting it all together we get a script
 <script src="https://gist.github.com/xrotwang/9f0377cfae9ee94ae31b.js"></script>
 
 which can be run as
 
-```bash
+{% highlight bash %}
 $ python ecoregions_for_species.py "Ursus maritimus"
 PA1101 Arctic desert
 NA0616 Southern Hudson Bay taiga
 NA1113 Kalaallit Nunaat low arctic tundra
 NA1112 Kalaallit Nunaat high arctic tundra
-```
+{% endhighlight %}
 
 Which looks about right considering that *Ursus maritimus* is also known as *Polar Bear*.
