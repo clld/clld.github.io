@@ -12,16 +12,16 @@ to have come up with the idea of
 
 
 What GitHub and the pull request have done for open source software development is simply
-too good to lose out on when it comes to research data curation: They created a global community around a
+too good to lose out on when it comes to research data curation: They created a global community around a:
 
-- a <a href="http://git-scm.com/"><i class="icon-share">&nbsp;</i>tool</a> and
-- a <a href="https://gun.io/blog/how-to-github-fork-branch-and-pull-request/"><i class="icon-share">&nbsp;</i>workflow</a> 
+- <a href="http://git-scm.com/"><i class="icon-share">&nbsp;</i>tool</a> and
+- <a href="https://gun.io/blog/how-to-github-fork-branch-and-pull-request/"><i class="icon-share">&nbsp;</i>workflow</a> 
 
 which lowers the level of expertise for potential contributors to what seems the optimal threshold
 to divide signal from noise.
 
 Now, knowing how to use a version control system may not quite be the optimal threshold when trying to
-stipulate researchers to contribute to collaborative curation projects. But is should be safe to say
+stipulate researchers to contribute to collaborative curation projects. But it should be safe to say
 <a href="http://blogs.biomedcentral.com/bmcblog/2013/02/28/version-control-for-scientific-research/"><i class="icon-share">&nbsp;</i>it's on its way</a> 
 into the curriculum.
 
@@ -36,7 +36,10 @@ at all times:
 - And releases can be seen as the equivalent of publications.
 
 Note: While some advantages of using git hinge on using line-based text formats for the data, 
-preferably not cluttered with markup (csv ftw!, bibtex, json if pretty printed), most of the
+preferably not cluttered with markup 
+(<a href="http://en.wikipedia.org/wiki/Comma-separated_values"><i class="icon-share">&nbsp;</i>csv</a> , 
+<a href="http://en.wikipedia.org/wiki/BibTeX"><i class="icon-share">&nbsp;</i>BibTeX</a> , 
+<a href="http://en.wikipedia.org/wiki/JSON"><i class="icon-share">&nbsp;</i>JSON</a> if pretty printed), most of the
 points hold for binary data as well. But again, missing out on 
 <a href="https://github.com/clld/tsammalex-data/blob/master/.gitattributes"><i class="icon-share">&nbsp;</i>the level of support</a>
 provided by a mature system such as git would seem foolish.
