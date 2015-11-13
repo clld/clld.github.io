@@ -21,7 +21,7 @@ is a recipe to create such a mapping dynamically. We use the general information
 [languages in Glottolog in JSON format](http://glottolog.org/resourcemap.json?rsc=language).
 This JSON object contains a member *resources* listing all Glottolog languages. The information
 about one language looks like
-```python
+<pre>
         {
             "id": "aari1239", 
             "identifiers": [
@@ -42,28 +42,29 @@ about one language looks like
             "longitude": 36.5721, 
             "name": "Aari"
         }
-```
+</pre>
 Simplifying such an object to
-```python
+<pre>
         {
             "glottocode": "aari1239", 
             "isocode": "aiw"
         }
-```
+</pre>
 is a typical task for the excellent [jq tool](https://stedolan.github.io/jq/). Turning
 JSON into csv can be done using 
 [csvkit's in2csv command](http://csvkit.readthedocs.org/en/0.9.1/scripts/in2csv.html).
+
 So wrapping up, we can turn Glottolog's information for languages into a csv file of the form
-```
+<pre>
 glottocode,isocode
 aari1239,aiw
 aari1240,aay
 aari1244,aiz
 ...
-```
+</pre>
 with a single command line:
-```
+<pre>
 curl "http://glottolog.org/resourcemap.json?rsc=language"\
 | jq '[.resources[] | {glottocode: .id, isocode: [.identifiers[]] | map(select(.type == "iso639-3"))[0].identifier}] | map(select(.isocode!=null))'\
 | in2csv -f json > glottocode2iso.csv
-```
+</pre>
