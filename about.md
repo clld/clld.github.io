@@ -38,7 +38,7 @@ sinnvoll zugänglich zu machen, sowie best practices für Datenpflege und
 #### Das CLLD Projekt
 
 Dieser Aufgabe stellt sich das CLLD Projekt. Durch das Bereitstellen einer
-[Publikationsplattform](http://clld.org/datasets.html) sollen Datenpublikationen 
+[Publikationsplattform](//clld.org/datasets.html) sollen Datenpublikationen 
 einerseits technisch vereinfacht werden, 
 andererseits ein größeres Prestige bekommen, so dass weder Angst
 vor technischen Schwierigkeiten noch die Befürchtung, um die Früchte der
@@ -52,5 +52,5 @@ Mit diesem Anspruch einher geht das Problem kollaborativer Datenpflege und der
 nachhaltigen Verfügbarkeit mehrerer Bearbeitungsstände von Datensätzen. Zwei
 interessante Lösungen für diese Probleme, die die Besonderheit der Daten im
 betrachteten Forschungsfeld berücksichtigen, werden 
-[hier](http://clld.org/2015/02/03/open-source-research-data.html) und 
-[hier](http://clld.org/2014/07/28/citing-clld-databases.html) näher vorgestellt.
+[hier](//clld.org/2015/02/03/open-source-research-data.html) und 
+[hier](clld.org/2014/07/28/citing-clld-databases.html) näher vorgestellt.
