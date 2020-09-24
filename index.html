@@ -8,38 +8,62 @@ menu_item: home
 </div>
 
 <p>
-  This diversity is exemplified by the
-  Sino-Tibetan language family on the map below
-  (from <a href="http://glottolog.org/resource/languoid/id/sino1245.bigmap.html#4/29.00/103.49">Glottolog</a>).
+    The Cross-Linguistic Linked Data project is developing and curating interoperable data
+    publication structures using Linked Data principles as integration mechanism for distributed
+    resources.
 </p>
-<p>
-  <img src="images/sino-tibetan.jpg" class="img-rounded" alt="Sino-Tibetan language family">
-</p>
-
-<p>The Cross-Linguistic Linked Data project is developing and curating interoperable data publication structures using Linked Data principles as integration mechanism for distributed resources. </p>
 
 <p>This philosophy allows for</p>
 
 <ul>
-<li>small-scale efforts to publish individual databases like <a href="http://wals.info">WALS</a> (World Atlas of Language Structures) or <a href="http://wold.clld.org">WOLD</a> (World Loanword Database), thereby preserving the brands established by these projects, </li>
-<li>while at the same time facilitating uniform access to the data across publications.</li>
-</ul><p>Within the project, this approach will be applied to publishing lexical and grammatical databases already compiled at the <a href="http://www.eva.mpg.de">MPI-EVA</a> and elsewhere. This has led to a <a href="https://github.com/clld/clld">software framework</a> which can then be used to develop database journals, i.e. edited collections of databases submitted by linguists from around the world.</p>
+<li>small-scale efforts to publish individual databases like <a href="https://wals.info">WALS</a> (World Atlas of Language Structures) or <a href="http://wold.clld.org">WOLD</a> (World Loanword Database), thereby preserving the brands established by these projects, </li>
+<li>while at the same time facilitating a unified user experience across publications.</li>
+</ul>
+
+<p>
+    Within the project, this approach is applied to publishing lexical and grammatical
+    databases already compiled at the <a href="http://www.eva.mpg.de">MPI-EVA</a> and elsewhere.
+    This has led to a <a href="https://github.com/clld/clld">software framework</a> which can be
+    used to develop database journals, i.e. edited collections of databases submitted by linguists from around the
+    world.
+</p>
 
 <p>
     A list of databases implemented as <a href="https://github.com/clld/clld">clld</a> applications
     and published on the CLLD platform is available following the <a href="datasets.html">Datasets</a> link.
 </p>
 
-<p>The following journals will soon be started for linguistic databases:</p>
+<p>
+    <a href="https://dictionaria.clld.org">Dictionaria</a> &mdash; a journal of dictionaries of less widely studied languages,
+    edited by Martin Haspelmath &amp; Barabara Stiebels &mdash; which runs on the clld framework has already published 10 dictionaries.
+</p>
 
-<ul>
-<li>Journal of Cross-Linguistic Databases (JCLD), edited by Harald Hammarström</li>
-<li>Dictionaria (journal of dictionaries of less widely studied languages), edited by Martin Haspelmath &amp; Iren Hartmann</li>
-</ul>
-
-<p>For the purposes of linking linguistic data uniquely to languages, language codes are needed for each language and each variety. For this reason, the CLLD project also comprises:</p>
+<p>
+    For the purposes of linking linguistic data uniquely to languages, language codes are needed
+    for each language and each variety. For this reason, the CLLD project also comprises:</p>
 
 <ul>
 <li>
 <a href="http://glottolog.org">Glottolog</a> (catalog of all languages, families and dialects, with comprehensive reference information), edited by Harald Hammarström, Martin Haspelmath &amp; Robert Forkel</li>
 </ul>
+
+
+<h3>CLLD and CLDF</h3>
+
+<p>
+    Arguably the most important outcome of the CLLD project was the specification of the
+    <a href="https://cldf.clld.org">CLDF standard</a>. CLDF provides a standard and guidelines to
+    store linguistic datasets as interrelated plain text files, facilitating
+</p>
+<ul>
+    <li>longterm archiving and FAIR access to such datasets via repositories like Zenodo,</li>
+    <li>a standardized submission format for journals such as Dictionaria,</li>
+    <li>simplified creation of clld applications from CLDF module-specific blueprints.</li>
+</ul>
+
+<p>
+    Using CLDF datasets as "input" for clld applications also solves one of the bigger problems of
+    publishing data in a web application: How to handle multiple versions of the data?
+    With CLDF, datasets can be versioned and multiple version can be published in a repository
+    while the web application is relegated to a browsable interface of the latest published version.
+</p>
